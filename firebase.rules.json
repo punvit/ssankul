@@ -1,0 +1,14 @@
+{
+  "rules": {
+    "settings": { ".read": true, ".write": true },
+    "rooms": { ".read": true, ".write": true },
+    "bookings": { ".read": true, ".write": true },
+    "blogs": { ".read": true, ".write": true },
+    "banners": { ".read": true, ".write": true },
+    "gallery": { ".read": true, ".write": true },
+    "testimonials": { ".read": true, ".write": true },
+    "attractions": { ".read": true, ".write": true },
+    "inquiries": { ".read": true, ".write": true },
+    "adminCredentials": { ".read": true, ".write": true }
+  }
+}

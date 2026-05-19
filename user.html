@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Saryu Sankul - Premium Homestay. Experience comfort, nature and peace. Direct booking, best price." />
+<title>Saryu Sankul — Premium Homestay</title>
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+/* ======================================================
+   SARYU SANKUL — PREMIUM HOMESTAY (USER PANEL)
+   Premium Nature Resort Theme
+====================================================== */
+
+:root{
+  --green-900:#1f3a2e;
+  --green-800:#2d5240;
+  --green-700:#3b6b54;
+  --green-500:#5a8f74;
+  --gold:#c8a26b;
+  --gold-2:#b48a4f;
+  --ivory:#fbf7ef;
+  --beige:#efe5d2;
+  --brown:#6b4f35;
+  --brown-soft:#8a6a4c;
+  --text:#2a2a2a;
+  --text-soft:#5e5e5e;
+  --white:#ffffff;
+  --shadow-sm:0 4px 14px rgba(31,58,46,.08);
+  --shadow-md:0 10px 30px rgba(31,58,46,.12);
+  --shadow-lg:0 20px 50px rgba(31,58,46,.18);
+  --radius-sm:12px;
+  --radius:18px;
+  --radius-lg:26px;
+  --bg:var(--ivory);
+  --surface:#ffffff;
+  --surface-2:#fff8ec;
+  --border:rgba(31,58,46,.10);
+}
+
+[data-theme="dark"]{
+  --ivory:#13181a;
+  --beige:#1a2225;
+  --text:#ece6d8;
+  --text-soft:#bcb6a6;
+  --white:#1c2326;
+  --surface:#1a2225;
+  --surface-2:#202a2d;
+  --border:rgba(200,162,107,.18);
+  --bg:#0f1416;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{scroll-behavior:smooth}
+body{
+  font-family:'Poppins',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.55;
+  overflow-x:hidden;
+  padding-bottom:80px;
+}
+h1,h2,h3,h4,h5,.serif{font-family:'Playfair Display',serif;letter-spacing:.2px}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+button{font-family:inherit;cursor:pointer;border:none;outline:none}
+input,textarea,select{font-family:inherit;outline:none}
+
+/* ====== LOADER ====== */
+#loader{
+  position:fixed;inset:0;background:linear-gradient(135deg,var(--green-900),var(--green-700));
+  display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;
+  transition:opacity .5s ease;
+}
+#loader.hide{opacity:0;pointer-events:none}
+.loader-logo{
+  font-family:'Playfair Display',serif;font-size:34px;color:var(--gold);
+  letter-spacing:2px;margin-bottom:18px;
+}
+.loader-ring{
+  width:48px;height:48px;border:3px solid rgba(255,255,255,.15);
+  border-top-color:var(--gold);border-radius:50%;animation:spin 1s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ====== TOPBAR / HEADER ====== */
+header.top{
+  position:sticky;top:0;z-index:100;
+  background:rgba(251,247,239,.85);
+  backdrop-filter:saturate(160%) blur(14px);
+  -webkit-backdrop-filter:saturate(160%) blur(14px);
+  border-bottom:1px solid var(--border);
+}
+[data-theme="dark"] header.top{background:rgba(19,24,26,.8)}
+.nav{
+  max-width:1240px;margin:0 auto;padding:14px 20px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+}
+.brand{display:flex;align-items:center;gap:12px}
+.brand .logo{
+  width:46px;height:46px;border-radius:14px;
+  background:linear-gradient(135deg,var(--green-700),var(--green-900));
+  color:var(--gold);display:flex;align-items:center;justify-content:center;
+  font-family:'Playfair Display',serif;font-size:22px;font-weight:700;
+  box-shadow:var(--shadow-sm);
+}
+.brand .name{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;line-height:1}
+.brand .tag{font-size:11px;color:var(--text-soft);letter-spacing:1px;text-transform:uppercase}
+
+.nav-links{display:flex;gap:6px;align-items:center}
+.nav-links a{
+  padding:9px 14px;border-radius:10px;font-size:14px;font-weight:500;color:var(--text);
+  transition:.25s;
+}
+.nav-links a:hover{background:var(--beige);color:var(--green-800)}
+.nav-links .theme-btn{
+  width:38px;height:38px;border-radius:50%;background:var(--beige);
+  display:flex;align-items:center;justify-content:center;color:var(--green-800);
+}
+@media (max-width:880px){
+  .nav-links a:not(.theme-btn){display:none}
+}
+
+/* ====== HERO ====== */
+.hero{
+  position:relative;min-height:88vh;display:flex;align-items:center;
+  padding:60px 20px 80px;color:#fff;overflow:hidden;
+}
+.hero-bg{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center;transform:scale(1.05)}
+.hero::after{
+  content:"";position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg,rgba(15,30,22,.55) 0%,rgba(15,30,22,.7) 60%,rgba(15,30,22,.85) 100%);
+}
+.hero-inner{position:relative;z-index:2;max-width:900px;margin:0 auto;text-align:center}
+.hero h1{font-size:clamp(32px,5vw,58px);font-weight:700;line-height:1.1;margin-bottom:18px;text-shadow:0 4px 18px rgba(0,0,0,.35)}
+.hero p{font-size:clamp(15px,2vw,18px);max-width:680px;margin:0 auto 26px;color:#eadfc7}
+.hero-badges{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:26px}
+.badge-glass{
+  display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:50px;
+  background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);
+  backdrop-filter:blur(10px);color:#fff;font-size:13px;font-weight:500;
+}
+.badge-glass i{color:var(--gold)}
+.hero-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;padding:14px 24px;border-radius:50px;
+  font-weight:600;font-size:15px;transition:.25s;cursor:pointer;
+}
+.btn-primary{background:linear-gradient(135deg,var(--gold),var(--gold-2));color:#fff;box-shadow:0 10px 24px rgba(200,162,107,.45)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(200,162,107,.55)}
+.btn-whatsapp{background:#25D366;color:#fff;box-shadow:0 10px 24px rgba(37,211,102,.4)}
+.btn-whatsapp:hover{transform:translateY(-2px)}
+.btn-ghost{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.3)}
+.btn-outline{background:transparent;color:var(--green-800);border:1.5px solid var(--green-800)}
+.btn-sm{padding:10px 16px;font-size:13px}
+
+/* ====== SECTIONS ====== */
+section{padding:70px 20px;position:relative}
+.container{max-width:1240px;margin:0 auto}
+.section-head{text-align:center;margin-bottom:42px}
+.section-head .kicker{
+  display:inline-block;padding:6px 14px;border-radius:30px;background:var(--beige);
+  color:var(--green-800);font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:14px;
+}
+.section-head h2{font-size:clamp(26px,3.5vw,40px);color:var(--green-900);margin-bottom:10px}
+[data-theme="dark"] .section-head h2{color:var(--gold)}
+.section-head p{color:var(--text-soft);max-width:620px;margin:0 auto;font-size:15px}
+
+/* ====== OFFERS / BANNERS ====== */
+.banner-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+.banner-card{
+  position:relative;border-radius:var(--radius-lg);overflow:hidden;min-height:200px;
+  background-size:cover;background-position:center;color:#fff;
+  display:flex;flex-direction:column;justify-content:flex-end;padding:22px;
+  box-shadow:var(--shadow-md);transition:.3s;
+}
+.banner-card:hover{transform:translateY(-4px)}
+.banner-card::before{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(0,0,0,0) 30%,rgba(0,0,0,.75) 100%);
+}
+.banner-card>*{position:relative;z-index:1}
+.banner-card h3{font-size:22px;margin-bottom:4px}
+.banner-card p{font-size:13px;opacity:.92;margin-bottom:12px}
+.banner-card .btn{background:var(--gold);color:#fff;padding:9px 18px;font-size:13px}
+
+/* ====== FILTERS ====== */
+.filters{
+  display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px;
+  background:var(--surface);padding:16px;border-radius:var(--radius);
+  box-shadow:var(--shadow-sm);border:1px solid var(--border);
+}
+.filters select,.filters input{
+  padding:11px 14px;border:1px solid var(--border);border-radius:12px;
+  background:var(--bg);color:var(--text);font-size:14px;flex:1;min-width:140px;
+}
+
+/* ====== ROOMS ====== */
+.rooms-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:24px}
+.room-card{
+  background:var(--surface);border-radius:var(--radius-lg);overflow:hidden;
+  box-shadow:var(--shadow-sm);border:1px solid var(--border);
+  transition:.3s;display:flex;flex-direction:column;
+}
+.room-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+.room-img{position:relative;height:220px;overflow:hidden;background:#ddd}
+.room-img img{width:100%;height:100%;object-fit:cover;transition:.5s}
+.room-card:hover .room-img img{transform:scale(1.06)}
+.avail-badge{
+  position:absolute;top:14px;left:14px;padding:6px 12px;border-radius:30px;
+  font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;
+  background:#fff;color:var(--green-800);
+}
+.avail-Available{background:#d8f5e3;color:#0d6f3a}
+.avail-Limited{background:#fff3cf;color:#a07300}
+.avail-Sold{background:#ffd6d6;color:#b00020}
+.avail-Maintenance{background:#e3e3e3;color:#555}
+.featured-pill{
+  position:absolute;top:14px;right:14px;padding:5px 11px;border-radius:30px;
+  background:var(--gold);color:#fff;font-size:11px;font-weight:600;
+  display:flex;align-items:center;gap:5px;
+}
+.room-body{padding:18px 20px 20px;flex:1;display:flex;flex-direction:column}
+.room-body h3{font-size:20px;color:var(--green-900);margin-bottom:4px}
+[data-theme="dark"] .room-body h3{color:var(--gold)}
+.room-type{font-size:12px;color:var(--text-soft);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.room-meta{display:flex;gap:14px;font-size:13px;color:var(--text-soft);margin-bottom:12px;flex-wrap:wrap}
+.room-meta span i{color:var(--gold);margin-right:4px}
+.room-amen{font-size:12px;color:var(--text-soft);margin-bottom:14px;min-height:18px}
+.price-row{display:flex;align-items:baseline;gap:10px;margin-bottom:14px}
+.price-now{font-size:24px;font-weight:700;color:var(--green-800);font-family:'Playfair Display',serif}
+[data-theme="dark"] .price-now{color:var(--gold)}
+.price-old{font-size:14px;color:#aa9c84;text-decoration:line-through}
+.price-night{font-size:12px;color:var(--text-soft)}
+.room-actions{display:flex;gap:8px;margin-top:auto}
+.room-actions .btn{flex:1;justify-content:center;padding:11px 14px;font-size:13px}
+
+/* ====== AMENITIES ====== */
+.amen-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px}
+.amen-card{
+  background:var(--surface);padding:24px 16px;text-align:center;border-radius:var(--radius);
+  border:1px solid var(--border);transition:.3s;
+}
+.amen-card:hover{background:var(--surface-2);transform:translateY(-3px)}
+.amen-card i{font-size:28px;color:var(--gold);margin-bottom:10px}
+.amen-card div{font-size:13px;font-weight:500;color:var(--text)}
+
+/* ====== GALLERY ====== */
+.gallery-grid{
+  columns:3 280px;column-gap:14px;
+}
+.gallery-grid figure{
+  break-inside:avoid;margin-bottom:14px;border-radius:var(--radius);overflow:hidden;
+  position:relative;cursor:pointer;box-shadow:var(--shadow-sm);
+}
+.gallery-grid img{transition:.4s}
+.gallery-grid figure:hover img{transform:scale(1.05)}
+.gallery-grid figcaption{
+  position:absolute;bottom:0;left:0;right:0;padding:14px;color:#fff;font-size:13px;font-weight:500;
+  background:linear-gradient(transparent,rgba(0,0,0,.7));
+}
+
+/* ====== BLOGS ====== */
+.blogs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px}
+.blog-card{
+  background:var(--surface);border-radius:var(--radius);overflow:hidden;
+  box-shadow:var(--shadow-sm);border:1px solid var(--border);transition:.3s;cursor:pointer;
+}
+.blog-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}
+.blog-card .img{height:180px;background-size:cover;background-position:center}
+.blog-card .body{padding:18px}
+.blog-card .cat{
+  display:inline-block;padding:4px 10px;border-radius:20px;background:var(--beige);
+  color:var(--green-800);font-size:11px;font-weight:600;margin-bottom:10px;text-transform:uppercase;letter-spacing:1px;
+}
+.blog-card h3{font-size:18px;color:var(--green-900);margin-bottom:8px;line-height:1.3}
+[data-theme="dark"] .blog-card h3{color:var(--gold)}
+.blog-card p{font-size:13px;color:var(--text-soft);margin-bottom:10px}
+.blog-card .meta{font-size:12px;color:var(--text-soft);display:flex;justify-content:space-between;align-items:center}
+.blog-card .meta .more{color:var(--gold);font-weight:600}
+
+/* ====== ATTRACTIONS ====== */
+.attr-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
+.attr-card{
+  background:var(--surface);border-radius:var(--radius);overflow:hidden;
+  box-shadow:var(--shadow-sm);border:1px solid var(--border);transition:.3s;
+}
+.attr-card:hover{transform:translateY(-4px)}
+.attr-card .img{height:160px;background-size:cover;background-position:center}
+.attr-card .body{padding:16px}
+.attr-card h4{font-size:17px;color:var(--green-900);margin-bottom:4px}
+[data-theme="dark"] .attr-card h4{color:var(--gold)}
+.attr-card .dist{font-size:12px;color:var(--gold-2);margin-bottom:8px;font-weight:600}
+.attr-card p{font-size:13px;color:var(--text-soft);margin-bottom:10px}
+.attr-card a{color:var(--green-700);font-size:13px;font-weight:600}
+
+/* ====== TESTIMONIALS ====== */
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:22px}
+.testi-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:24px;box-shadow:var(--shadow-sm);position:relative;
+}
+.testi-card .quote{position:absolute;top:-12px;left:18px;background:var(--gold);color:#fff;width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.testi-card .stars{color:#f5b301;font-size:14px;margin-bottom:10px}
+.testi-card p{font-size:14px;color:var(--text);margin-bottom:14px;font-style:italic}
+.testi-author{display:flex;align-items:center;gap:10px}
+.testi-author .av{
+  width:42px;height:42px;border-radius:50%;background:var(--green-700);color:var(--gold);
+  display:flex;align-items:center;justify-content:center;font-weight:600;
+  background-size:cover;background-position:center;
+}
+.testi-author .nm{font-weight:600;font-size:14px}
+
+/* ====== BOOKING FORM ====== */
+.booking-wrap{
+  background:var(--surface);border-radius:var(--radius-lg);padding:32px;
+  box-shadow:var(--shadow-md);border:1px solid var(--border);
+  max-width:760px;margin:0 auto;
+}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-grid .full{grid-column:1/-1}
+@media(max-width:600px){.form-grid{grid-template-columns:1fr}}
+.field label{display:block;font-size:13px;font-weight:500;margin-bottom:6px;color:var(--text)}
+.field input,.field select,.field textarea{
+  width:100%;padding:13px 14px;border:1px solid var(--border);border-radius:12px;
+  background:var(--bg);color:var(--text);font-size:14px;transition:.25s;
+}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(200,162,107,.15)}
+.field textarea{resize:vertical;min-height:90px}
+
+/* ====== CONTACT ====== */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+@media(max-width:800px){.contact-grid{grid-template-columns:1fr}}
+.contact-info{background:var(--surface);padding:30px;border-radius:var(--radius-lg);border:1px solid var(--border)}
+.contact-info h3{font-size:22px;color:var(--green-900);margin-bottom:18px}
+[data-theme="dark"] .contact-info h3{color:var(--gold)}
+.contact-row{display:flex;gap:14px;margin-bottom:18px;align-items:flex-start}
+.contact-row i{
+  width:42px;height:42px;border-radius:12px;background:var(--beige);color:var(--green-800);
+  display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;
+}
+.contact-row div{font-size:14px}
+.contact-row div b{display:block;font-size:13px;color:var(--text-soft);margin-bottom:2px;font-weight:500}
+
+/* ====== POLICIES / FAQ ====== */
+.policy-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+.policy-card{
+  background:var(--surface-2);padding:22px;border-radius:var(--radius);border:1px solid var(--border);
+}
+.policy-card h4{font-size:16px;color:var(--green-900);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+[data-theme="dark"] .policy-card h4{color:var(--gold)}
+.policy-card h4 i{color:var(--gold)}
+.policy-card p{font-size:13px;color:var(--text-soft)}
+
+.faq-list{max-width:760px;margin:30px auto 0}
+.faq-item{
+  background:var(--surface);border:1px solid var(--border);border-radius:14px;
+  margin-bottom:10px;overflow:hidden;
+}
+.faq-q{padding:16px 18px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-weight:500;font-size:14px}
+.faq-a{padding:0 18px;max-height:0;overflow:hidden;transition:.3s;font-size:14px;color:var(--text-soft)}
+.faq-item.open .faq-a{padding:0 18px 16px;max-height:300px}
+.faq-item.open .faq-q i{transform:rotate(180deg)}
+.faq-q i{transition:.3s;color:var(--gold)}
+
+/* ====== FOOTER ====== */
+footer{
+  background:var(--green-900);color:#cbd6cd;padding:50px 20px 30px;margin-top:50px;
+}
+.foot-grid{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:30px}
+.foot-grid h4{color:var(--gold);font-family:'Playfair Display',serif;margin-bottom:14px}
+.foot-grid a{display:block;font-size:13px;color:#cbd6cd;margin-bottom:6px;transition:.2s}
+.foot-grid a:hover{color:var(--gold)}
+.copy{text-align:center;margin-top:30px;padding-top:20px;border-top:1px solid rgba(255,255,255,.1);font-size:12px;color:#9aa89e}
+
+/* ====== FLOATING BUTTONS ====== */
+.float{
+  position:fixed;right:18px;width:54px;height:54px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;color:#fff;font-size:22px;
+  box-shadow:0 8px 22px rgba(0,0,0,.25);z-index:90;transition:.25s;
+}
+.float:hover{transform:scale(1.08)}
+.float-wa{background:#25D366;bottom:160px}
+.float-call{background:var(--green-700);bottom:96px}
+@media(max-width:880px){
+  .float-wa{bottom:160px}
+  .float-call{bottom:96px}
+}
+
+/* ====== BOTTOM NAV (mobile) ====== */
+.bottom-nav{
+  display:none;
+  position:fixed;bottom:0;left:0;right:0;z-index:95;
+  background:rgba(251,247,239,.96);backdrop-filter:blur(14px);
+  border-top:1px solid var(--border);
+  padding:8px 6px;
+}
+[data-theme="dark"] .bottom-nav{background:rgba(19,24,26,.96)}
+.bottom-nav ul{list-style:none;display:flex;justify-content:space-around}
+.bottom-nav a{
+  display:flex;flex-direction:column;align-items:center;padding:6px 10px;
+  font-size:10px;color:var(--text-soft);font-weight:500;border-radius:10px;
+}
+.bottom-nav a i{font-size:18px;margin-bottom:3px;color:var(--green-700)}
+.bottom-nav a.active{color:var(--green-800)}
+.bottom-nav a.active i{color:var(--gold)}
+@media(max-width:880px){.bottom-nav{display:block}body{padding-bottom:80px}}
+
+/* ====== MODALS ====== */
+.modal-mask{
+  position:fixed;inset:0;background:rgba(15,20,17,.65);
+  display:none;align-items:center;justify-content:center;z-index:1000;
+  padding:20px;animation:fade .25s;
+}
+.modal-mask.show{display:flex}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.modal{
+  background:var(--surface);border-radius:var(--radius-lg);max-width:720px;width:100%;
+  max-height:92vh;overflow-y:auto;animation:slideUp .35s;box-shadow:var(--shadow-lg);
+}
+@keyframes slideUp{from{transform:translateY(40px);opacity:0}to{transform:translateY(0);opacity:1}}
+.modal-head{padding:18px 22px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--surface);z-index:2}
+.modal-head h3{font-size:20px;color:var(--green-900)}
+[data-theme="dark"] .modal-head h3{color:var(--gold)}
+.modal-close{
+  width:34px;height:34px;border-radius:50%;background:var(--beige);color:var(--green-800);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+}
+.modal-body{padding:22px}
+.modal-body .lg-img{width:100%;height:280px;object-fit:cover;border-radius:14px;margin-bottom:18px}
+.modal-body p{font-size:14px;color:var(--text);margin-bottom:10px;line-height:1.65}
+.amen-chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.amen-chips span{
+  background:var(--beige);color:var(--green-800);padding:6px 12px;border-radius:30px;
+  font-size:12px;font-weight:500;
+}
+
+/* ====== TOAST ====== */
+#toast{
+  position:fixed;top:24px;left:50%;transform:translateX(-50%) translateY(-20px);
+  background:var(--green-900);color:#fff;padding:13px 22px;border-radius:30px;
+  font-size:14px;z-index:5000;opacity:0;transition:.3s;box-shadow:var(--shadow-md);
+  display:flex;align-items:center;gap:8px;
+}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+#toast.success{background:#0d6f3a}
+#toast.error{background:#b00020}
+
+/* ====== EMPTY STATE ====== */
+.empty{
+  text-align:center;padding:40px 20px;color:var(--text-soft);
+  background:var(--surface);border-radius:var(--radius);border:1px dashed var(--border);
+}
+.empty i{font-size:36px;color:var(--gold);margin-bottom:12px}
+
+/* ====== BOOKING CONFIRMATION ====== */
+.confirm-box{
+  text-align:center;padding:30px 10px;
+}
+.confirm-box .tick{
+  width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#52c878,#0d6f3a);
+  color:#fff;display:flex;align-items:center;justify-content:center;font-size:38px;margin:0 auto 20px;
+  animation:pop .5s;
+}
+@keyframes pop{0%{transform:scale(.3);opacity:0}100%{transform:scale(1);opacity:1}}
+.confirm-box h2{font-size:26px;color:var(--green-900);margin-bottom:8px}
+[data-theme="dark"] .confirm-box h2{color:var(--gold)}
+.confirm-box .bid{
+  display:inline-block;background:var(--beige);color:var(--green-800);padding:8px 16px;
+  border-radius:30px;font-weight:600;margin:10px 0 20px;letter-spacing:1px;
+}
+.confirm-info{text-align:left;background:var(--surface-2);padding:18px;border-radius:14px;margin:18px 0}
+.confirm-info div{display:flex;justify-content:space-between;padding:6px 0;font-size:14px;border-bottom:1px dashed var(--border)}
+.confirm-info div:last-child{border:none}
+.confirm-info div b{color:var(--text-soft);font-weight:500}
+
+</style>
+</head>
+<body>
+
+<!-- ====== LOADER ====== -->
+<div id="loader">
+  <div class="loader-logo">Saryu Sankul</div>
+  <div class="loader-ring"></div>
+</div>
+
+<!-- ====== HEADER ====== -->
+<header class="top">
+  <div class="nav">
+    <div class="brand">
+      <div class="logo">S</div>
+      <div>
+        <div class="name" id="brandName">Saryu Sankul</div>
+        <div class="tag" id="brandTag">Premium Homestay</div>
+      </div>
+    </div>
+    <nav class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#rooms">Rooms</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#blogs">Blogs</a>
+      <a href="#contact">Contact</a>
+      <button class="theme-btn" id="themeBtn" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button>
+    </nav>
+  </div>
+</header>
+
+<!-- ====== HERO ====== -->
+<section class="hero" id="home">
+  <div class="hero-bg" id="heroBg" style="background-image:url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1800&q=80')"></div>
+  <div class="hero-inner">
+    <div class="hero-badges">
+      <span class="badge-glass"><i class="fa-solid fa-star"></i> 4.9 Guest Rated</span>
+      <span class="badge-glass"><i class="fa-solid fa-shield-halved"></i> Direct Booking</span>
+      <span class="badge-glass"><i class="fa-solid fa-leaf"></i> Nature Retreat</span>
+    </div>
+    <h1 id="heroTitle">Experience Comfort, Nature &amp; Peace at Saryu Sankul</h1>
+    <p id="heroSubtitle">Book your peaceful stay directly with us. No middleman, best prices, warm hospitality.</p>
+    <div class="hero-cta">
+      <a href="#booking" class="btn btn-primary"><i class="fa-solid fa-calendar-check"></i> Book Now</a>
+      <a href="#" id="heroWa" class="btn btn-whatsapp"><i class="fa-brands fa-whatsapp"></i> WhatsApp Us</a>
+    </div>
+  </div>
+</section>
+
+<!-- ====== OFFERS / BANNERS ====== -->
+<section id="offers">
+  <div class="container">
+    <div class="section-head">
+      <span class="kicker">Limited Time</span>
+      <h2>Seasonal Offers</h2>
+      <p>Direct booking discounts and family packages from Saryu Sankul.</p>
+    </div>
+    <div class="banner-strip" id="bannerStrip">
+      <div class="empty"><i class="fa-solid fa-tag"></i><div>No active offers right now</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== ROOMS ====== -->
+<section id="rooms">
+  <div class="container">
+    <div class="section-head">
+      <span class="kicker">Our Stays</span>
+      <h2>Premium Rooms</h2>
+      <p>Choose from comfortable rooms designed for couples, families and groups.</p>
+    </div>
+
+    <div class="filters">
+      <select id="fCapacity"><option value="">Any Capacity</option><option value="2">2 Guests</option><option value="4">4 Guests</option><option value="6">6 Guests</option></select>
+      <select id="fAvail"><option value="">All Availability</option><option>Available</option><option>Limited</option></select>
+      <select id="fType"><option value="">All Types</option></select>
+      <input type="number" id="fPrice" placeholder="Max price (₹)">
+      <button class="btn btn-outline btn-sm" onclick="renderRooms()"><i class="fa-solid fa-filter"></i> Apply</button>
+    </div>
+
+    <div class="rooms-grid" id="roomsGrid">
+      <div class="empty"><i class="fa-solid fa-bed"></i><div>Loading rooms...</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== AMENITIES ====== -->
+<section id="amenities" style="background:var(--surface-2)">
+  <div class="container">
+    <div class="section-head">
+      <span class="kicker">Comfort</span>
+      <h2>Amenities &amp; Facilities</h2>
+      <p>Everything you need for a relaxed and refreshing stay.</p>
+    </div>
+    <div class="amen-grid">
+      <div class="amen-card"><i class="fa-solid fa-wifi"></i><div>Free Wi-Fi</div></div>
+      <div class="amen-card"><i class="fa-solid fa-square-parking"></i><div>Free Parking</div></div>
+      <div class="amen-card"><i class="fa-solid fa-people-roof"></i><div>Family Friendly</div></div>
+      <div class="amen-card"><i class="fa-solid fa-temperature-high"></i><div>Hot Water</div></div>
+      <div class="amen-card"><i class="fa-solid fa-utensils"></i><div>Food Available</div></div>
+      <div class="amen-card"><i class="fa-solid fa-broom"></i><div>Clean Rooms</div></div>
+      <div class="amen-card"><i class="fa-solid fa-mountain-sun"></i><div>Peaceful Location</div></div>
+      <div class="amen-card"><i class="fa-solid fa-handshake"></i><div>Direct Booking</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== BOOKING FORM ====== -->
+<section id="booking">
+  <div class="container">
+    <div class="section-head">
+      <span class="kicker">Reserve</span>
+      <h2>Book Your Stay</h2>
+      <p>Fill the form and our team will reach out to confirm your booking.</p>
+    </div>
+    <div class="booking-wrap">
+      <form id="bookingForm" class="form-grid">
+        <div class="field"><label>Guest Name *</label><input type="text" name="guestName" required></div>
+        <div class="field"><label>Mobile Number *</label><input type="tel" name="phone" required pattern="[0-9]{10,13}"></div>
+        <div class="field"><label>Email</label><input type="email" name="email"></div>
+        <div class="field"><label>Room Type *</label><select name="roomId" id="bookRoomSelect" required><option value="">Select Room</option></select></div>
+        <div class="field"><label>Check-in *</label><input type="date" name="checkIn" required></div>
+        <div class="field"><label>Check-out *</label><input type="date" name="checkOut" required></div>
+        <div class="field"><label>Number of Guests *</label><input type="number" name="guests" min="1" max="20" value="2" required></div>
+        <div class="field"><label>Special Request</label><input type="text" name="specialRequest" placeholder="Early check-in, extra bed..."></div>
+        <div class="full" style="text-align:center;margin-top:8px">
+          <button type="submit" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> Submit Booking</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ====== GALLERY ====== -->
+<section id="gallery" style="background:var(--surface-2)">
+  <div class="container">
+    <div class="section-head">
+      <span class="kicker">Visual Tour</span>
+      <h2>Gallery</h2>
+      <p>A glimpse of our property, rooms and surroundings.</p>
+    </div>
+    <div class="gallery-grid" id="galleryGrid">
+      <div class="empty"><i class="fa-regular fa-image"></i><div>Gallery loading...</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== BLOGS ====== -->
+<section id="blogs">
+  <div class="container">
+    <div class="section-head">
+      <span class="kicker">Stories</span>
+      <h2>Blogs &amp; Articles</h2>
+      <p>Travel guides, tips and updates from Saryu Sankul.</p>
+    </div>
+    <div class="blogs-grid" id="blogsGrid">
+      <div class="empty"><i class="fa-regular fa-newspaper"></i><div>No blogs yet</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== NEARBY ATTRACTIONS ====== -->
+<section id="attractions" style="background:var(--surface-2)">
+  <div class="container">
+    <div class="section-head">
+      <span class="kicker">Explore</span>
+      <h2>Nearby Attractions</h2>
+      <p>Places worth visiting around our homestay.</p>
+    </div>
+    <div class="attr-grid" id="attrGrid">
+      <div class="empty"><i class="fa-solid fa-location-dot"></i><div>Attractions coming soon</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== TESTIMONIALS ====== -->
+<section id="testimonials">
+  <div class="container">
+    <div class="section-head">
+      <span class="kicker">Reviews</span>
+      <h2>What Our Guests Say</h2>
+      <p>Real experiences from real guests at Saryu Sankul.</p>
+    </div>
+    <div class="testi-grid" id="testiGrid">
+      <div class="empty"><i class="fa-regular fa-comment"></i><div>No reviews yet</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== CONTACT ====== -->
+<section id="contact" style="background:var(--surface-2)">
+  <div class="container">
+    <div class="section-head">
+      <span class="kicker">Reach Us</span>
+      <h2>Contact Us</h2>
+      <p>Have a question? Send us a message and we'll respond quickly.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h3>Get in Touch</h3>
+        <div class="contact-row"><i class="fa-solid fa-location-dot"></i><div><b>Address</b><span id="cAddress">—</span></div></div>
+        <div class="contact-row"><i class="fa-solid fa-phone"></i><div><b>Phone</b><a id="cPhone" href="#">—</a></div></div>
+        <div class="contact-row"><i class="fa-brands fa-whatsapp"></i><div><b>WhatsApp</b><a id="cWa" href="#" target="_blank">—</a></div></div>
+        <div class="contact-row"><i class="fa-solid fa-envelope"></i><div><b>Email</b><a id="cEmail" href="#">—</a></div></div>
+        <div class="contact-row"><i class="fa-solid fa-map"></i><div><b>Map</b><a id="cMap" href="#" target="_blank">View on Google Maps</a></div></div>
+      </div>
+      <div class="contact-info">
+        <h3>Send Message</h3>
+        <form id="inquiryForm">
+          <div class="field" style="margin-bottom:12px"><label>Name</label><input type="text" name="name" required></div>
+          <div class="field" style="margin-bottom:12px"><label>Phone</label><input type="tel" name="phone" required></div>
+          <div class="field" style="margin-bottom:12px"><label>Message</label><textarea name="message" required></textarea></div>
+          <button type="submit" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> Send Inquiry</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== POLICIES & FAQ ====== -->
+<section id="policies">
+  <div class="container">
+    <div class="section-head">
+      <span class="kicker">Good to Know</span>
+      <h2>Policies &amp; FAQ</h2>
+    </div>
+    <div class="policy-grid">
+      <div class="policy-card"><h4><i class="fa-solid fa-right-to-bracket"></i> Check-in</h4><p id="pCheckin">12:00 PM</p></div>
+      <div class="policy-card"><h4><i class="fa-solid fa-right-from-bracket"></i> Check-out</h4><p id="pCheckout">11:00 AM</p></div>
+      <div class="policy-card"><h4><i class="fa-solid fa-id-card"></i> ID Proof</h4><p id="pId">Valid government ID required at check-in.</p></div>
+      <div class="policy-card"><h4><i class="fa-solid fa-credit-card"></i> Payment</h4><p id="pPay">Advance payment may be required.</p></div>
+      <div class="policy-card"><h4><i class="fa-solid fa-ban"></i> Cancellation</h4><p id="pCancel">See cancellation policy.</p></div>
+      <div class="policy-card"><h4><i class="fa-solid fa-house-chimney"></i> House Rules</h4><p id="pRules">Respect neighbors and property.</p></div>
+    </div>
+    <div class="faq-list" id="faqList">
+      <div class="faq-item"><div class="faq-q">Is direct booking cheaper? <i class="fa-solid fa-chevron-down"></i></div><div class="faq-a">Yes. Booking directly with us avoids platform commissions, so we offer the best prices and personal hospitality.</div></div>
+      <div class="faq-item"><div class="faq-q">Is parking available? <i class="fa-solid fa-chevron-down"></i></div><div class="faq-a">Yes, free parking is available for guests.</div></div>
+      <div class="faq-item"><div class="faq-q">Do you serve food? <i class="fa-solid fa-chevron-down"></i></div><div class="faq-a">Yes, home-cooked meals can be arranged on request.</div></div>
+      <div class="faq-item"><div class="faq-q">How do I confirm my booking? <i class="fa-solid fa-chevron-down"></i></div><div class="faq-a">Submit the booking form or message us on WhatsApp. Our team will confirm and share payment details.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== FOOTER ====== -->
+<footer>
+  <div class="foot-grid">
+    <div>
+      <h4 id="footName">Saryu Sankul</h4>
+      <p style="font-size:13px" id="footAbout">A peaceful premium homestay surrounded by nature. Stay direct, stay happy.</p>
+    </div>
+    <div>
+      <h4>Quick Links</h4>
+      <a href="#rooms">Rooms</a>
+      <a href="#booking">Book Now</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#blogs">Blogs</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <a id="fPhone" href="#">—</a>
+      <a id="fEmail" href="#">—</a>
+      <a id="fWa" href="#" target="_blank">WhatsApp</a>
+    </div>
+    <div>
+      <h4>Follow</h4>
+      <a href="#"><i class="fa-brands fa-facebook"></i> Facebook</a>
+      <a href="#"><i class="fa-brands fa-instagram"></i> Instagram</a>
+      <a href="#"><i class="fa-brands fa-youtube"></i> YouTube</a>
+    </div>
+  </div>
+  <div class="copy">© <span id="yr"></span> Saryu Sankul. All rights reserved. | <a href="admin.html" style="color:var(--gold)">Admin</a></div>
+</footer>
+
+<!-- ====== FLOATING BUTTONS ====== -->
+<a id="floatWa" href="#" class="float float-wa" target="_blank" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+<a id="floatCall" href="#" class="float float-call" aria-label="Call"><i class="fa-solid fa-phone"></i></a>
+
+<!-- ====== BOTTOM NAV ====== -->
+<nav class="bottom-nav">
+  <ul>
+    <li><a href="#home"><i class="fa-solid fa-house"></i>Home</a></li>
+    <li><a href="#rooms"><i class="fa-solid fa-bed"></i>Rooms</a></li>
+    <li><a href="#booking"><i class="fa-solid fa-calendar-check"></i>Book</a></li>
+    <li><a href="#gallery"><i class="fa-regular fa-image"></i>Gallery</a></li>
+    <li><a href="#contact"><i class="fa-solid fa-phone"></i>Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ====== MODAL ====== -->
+<div class="modal-mask" id="modalMask">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="modalTitle">Title</h3>
+      <div class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></div>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<!-- ====== TOAST ====== -->
+<div id="toast"></div>
+
+<!-- ====== FIREBASE (compat) ====== -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+<script>
+/* =======================================================
+   FIREBASE CONFIG — replace with your project's values
+======================================================= */
+const firebaseConfig = {
+  apiKey: "AIzaSyA7o7B7wJuo7c75hBX4Zc8AmyG-Zi_iYCI",
+  authDomain: "saryu-sankul.firebaseapp.com",
+  databaseURL: "https://saryu-sankul-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "saryu-sankul",
+  storageBucket: "saryu-sankul.firebasestorage.app",
+  messagingSenderId: "44385150280",
+  appId: "1:44385150280:web:abf95bd537bf3fe1fbbf7d"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+/* =======================================================
+   GLOBAL STATE
+======================================================= */
+let SETTINGS = {};
+let ROOMS = {};
+let BLOGS = {};
+let BANNERS = {};
+let GALLERY = {};
+let TESTIMONIALS = {};
+let ATTRACTIONS = {};
+
+/* =======================================================
+   UTILITIES
+======================================================= */
+function $(sel,root=document){return root.querySelector(sel)}
+function $$(sel,root=document){return [...root.querySelectorAll(sel)]}
+function toast(msg,type=""){
+  const t=$("#toast");t.textContent=msg;t.className="show "+type;
+  setTimeout(()=>t.className="",2800);
+}
+function genBookingId(){
+  return "SSBK"+Math.floor(100000+Math.random()*900000);
+}
+function fmtINR(n){if(!n) return "—";return "₹"+Number(n).toLocaleString('en-IN')}
+function escapeHTML(s){return String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function nlBr(s){return escapeHTML(s).replace(/\n/g,"<br>")}
+
+/* =======================================================
+   MODAL
+======================================================= */
+function openModal(title,htmlBody){
+  $("#modalTitle").textContent=title;
+  $("#modalBody").innerHTML=htmlBody;
+  $("#modalMask").classList.add("show");
+  document.body.style.overflow="hidden";
+}
+function closeModal(){
+  $("#modalMask").classList.remove("show");
+  document.body.style.overflow="";
+}
+$("#modalMask").addEventListener("click",e=>{if(e.target.id==="modalMask")closeModal()});
+
+/* =======================================================
+   THEME
+======================================================= */
+const savedTheme=localStorage.getItem("ss_theme")||"light";
+if(savedTheme==="dark")document.documentElement.setAttribute("data-theme","dark");
+$("#themeBtn").addEventListener("click",()=>{
+  const cur=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";
+  if(cur==="dark")document.documentElement.setAttribute("data-theme","dark");
+  else document.documentElement.removeAttribute("data-theme");
+  localStorage.setItem("ss_theme",cur);
+  $("#themeBtn").innerHTML=cur==="dark"?'<i class="fa-solid fa-sun"></i>':'<i class="fa-solid fa-moon"></i>';
+});
+if(savedTheme==="dark")$("#themeBtn").innerHTML='<i class="fa-solid fa-sun"></i>';
+
+/* =======================================================
+   SETTINGS SYNC
+======================================================= */
+function applySettings(s){
+  if(!s)return;
+  SETTINGS=s;
+  $("#brandName").textContent=s.homestayName||"Saryu Sankul";
+  $("#brandTag").textContent=s.tagline||"Premium Homestay";
+  $("#footName").textContent=s.homestayName||"Saryu Sankul";
+  $("#footAbout").textContent=s.about||"A peaceful premium homestay.";
+  $("#heroTitle").textContent=s.heroTitle||"Experience Comfort, Nature & Peace at Saryu Sankul";
+  $("#heroSubtitle").textContent=s.heroSubtitle||"Book your peaceful stay directly with us.";
+  if(s.heroImage)$("#heroBg").style.backgroundImage=`url('${s.heroImage}')`;
+
+  $("#cAddress").textContent=s.address||"—";
+  $("#cPhone").textContent=s.phone||"—";$("#cPhone").href="tel:"+(s.phone||"");
+  $("#cEmail").textContent=s.email||"—";$("#cEmail").href="mailto:"+(s.email||"");
+  $("#cMap").href=s.mapLink||"#";
+  $("#fPhone").textContent=s.phone||"—";$("#fPhone").href="tel:"+(s.phone||"");
+  $("#fEmail").textContent=s.email||"—";$("#fEmail").href="mailto:"+(s.email||"");
+
+  const waNum=(s.whatsapp||"").replace(/\D/g,"");
+  const waLink=`https://wa.me/${waNum}?text=${encodeURIComponent("Hi Saryu Sankul, I'd like to know about room availability.")}`;
+  $("#floatWa").href=waLink;
+  $("#heroWa").href=waLink;
+  $("#cWa").href=waLink;$("#cWa").textContent="+"+waNum;
+  $("#fWa").href=waLink;
+
+  $("#floatCall").href="tel:"+(s.phone||"");
+
+  $("#pCheckin").textContent=s.checkIn||"12:00 PM";
+  $("#pCheckout").textContent=s.checkOut||"11:00 AM";
+  $("#pCancel").textContent=s.cancellationPolicy||"Cancellation policy text here";
+  $("#pPay").textContent=s.paymentPolicy||"Advance payment may be required.";
+  $("#pRules").textContent=s.houseRules||"Valid ID proof required at check-in.";
+  $("#pId").textContent=s.idProof||"Valid government ID required at check-in.";
+}
+
+/* =======================================================
+   ROOMS RENDER
+======================================================= */
+function renderRooms(){
+  const grid=$("#roomsGrid");
+  const cap=$("#fCapacity").value;
+  const av=$("#fAvail").value;
+  const tp=$("#fType").value;
+  const mp=parseInt($("#fPrice").value);
+
+  const list=Object.entries(ROOMS).filter(([id,r])=>{
+    if(cap && Number(r.capacity)<Number(cap))return false;
+    if(av && r.availability!==av)return false;
+    if(tp && r.type!==tp)return false;
+    if(mp && (r.discountPrice||r.price)>mp)return false;
+    return true;
+  });
+
+  if(!list.length){
+    grid.innerHTML=`<div class="empty"><i class="fa-solid fa-bed"></i><div>No rooms match your filter</div></div>`;
+    return;
+  }
+
+  grid.innerHTML=list.map(([id,r])=>{
+    const av=(r.availability||"Available");
+    const cls=av==="Sold Out"?"avail-Sold":av==="Under Maintenance"?"avail-Maintenance":"avail-"+av;
+    const blocked=av==="Sold Out"||av==="Under Maintenance";
+    const imgUrl=r.image||"https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800";
+    return `
+      <div class="room-card">
+        <div class="room-img">
+          <img src="${escapeHTML(imgUrl)}" alt="${escapeHTML(r.name)}" onerror="this.src='https://via.placeholder.com/600x400?text=Room'">
+          <span class="avail-badge ${cls}">${av}</span>
+          ${r.featured?'<span class="featured-pill"><i class="fa-solid fa-star"></i> Featured</span>':''}
+        </div>
+        <div class="room-body">
+          <h3>${escapeHTML(r.name)}</h3>
+          <div class="room-type">${escapeHTML(r.type||"")}</div>
+          <div class="room-meta">
+            <span><i class="fa-solid fa-user-group"></i>${r.capacity||1} guests</span>
+            <span><i class="fa-solid fa-bed"></i>${escapeHTML(r.type||"Room")}</span>
+            <span><i class="fa-solid fa-layer-group"></i>${r.quantity||1} units</span>
+          </div>
+          <div class="room-amen">${escapeHTML(r.amenities||"Wi-Fi · Parking · Hot Water")}</div>
+          <div class="price-row">
+            <span class="price-now">${fmtINR(r.discountPrice||r.price)}</span>
+            ${r.discountPrice?`<span class="price-old">${fmtINR(r.price)}</span>`:""}
+            <span class="price-night">/ night</span>
+          </div>
+          <div class="room-actions">
+            <button class="btn btn-outline" onclick="viewRoom('${id}')"><i class="fa-regular fa-eye"></i> Details</button>
+            <button class="btn btn-primary" ${blocked?"disabled style='opacity:.5;cursor:not-allowed'":""} onclick="${blocked?'':`bookRoom('${id}')`}">
+              <i class="fa-solid fa-calendar-check"></i> ${blocked?'Unavailable':'Book Now'}
+            </button>
+          </div>
+        </div>
+      </div>`;
+  }).join("");
+}
+
+function viewRoom(id){
+  const r=ROOMS[id];if(!r)return;
+  const av=r.availability||"Available";
+  const amenList=(r.amenities||"").split(",").map(a=>a.trim()).filter(Boolean);
+  openModal(r.name,`
+    <img class="lg-img" src="${escapeHTML(r.image||'https://via.placeholder.com/800x400?text=Room')}" onerror="this.src='https://via.placeholder.com/800x400?text=Room'">
+    <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:14px">
+      <div>
+        <div class="room-type" style="margin-bottom:4px">${escapeHTML(r.type||"")}</div>
+        <h3 style="font-family:'Playfair Display',serif;color:var(--green-900);font-size:22px">${escapeHTML(r.name)}</h3>
+      </div>
+      <div style="text-align:right">
+        <div class="price-now" style="font-size:22px">${fmtINR(r.discountPrice||r.price)}</div>
+        ${r.discountPrice?`<div class="price-old" style="font-size:13px">${fmtINR(r.price)}</div>`:""}
+      </div>
+    </div>
+    <div class="room-meta" style="margin-bottom:14px">
+      <span><i class="fa-solid fa-user-group"></i>${r.capacity} guests</span>
+      <span><i class="fa-solid fa-bed"></i>${escapeHTML(r.type||"")}</span>
+      <span class="avail-badge ${av==='Sold Out'?'avail-Sold':av==='Under Maintenance'?'avail-Maintenance':'avail-'+av}">${av}</span>
+    </div>
+    <p>${nlBr(r.description||"")}</p>
+    <div class="amen-chips">${amenList.map(a=>`<span><i class="fa-solid fa-check" style="color:var(--green-700);margin-right:4px"></i>${escapeHTML(a)}</span>`).join("")}</div>
+    <div style="text-align:center;margin-top:18px">
+      <button class="btn btn-primary" onclick="bookRoom('${id}');closeModal()"><i class="fa-solid fa-calendar-check"></i> Book This Room</button>
+    </div>
+  `);
+}
+
+function bookRoom(id){
+  $("#bookRoomSelect").value=id;
+  closeModal();
+  document.getElementById("booking").scrollIntoView({behavior:"smooth"});
+}
+
+function refreshRoomSelect(){
+  const sel=$("#bookRoomSelect");
+  const fType=$("#fType");
+  sel.innerHTML='<option value="">Select Room</option>';
+  fType.innerHTML='<option value="">All Types</option>';
+  const types=new Set();
+  Object.entries(ROOMS).forEach(([id,r])=>{
+    const blocked=r.availability==="Sold Out"||r.availability==="Under Maintenance";
+    sel.innerHTML+=`<option value="${id}" ${blocked?'disabled':''}>${escapeHTML(r.name)} ${blocked?'('+r.availability+')':''}</option>`;
+    if(r.type)types.add(r.type);
+  });
+  [...types].forEach(t=>fType.innerHTML+=`<option>${escapeHTML(t)}</option>`);
+}
+
+/* =======================================================
+   BANNERS / OFFERS
+======================================================= */
+function renderBanners(){
+  const grid=$("#bannerStrip");
+  const list=Object.entries(BANNERS).filter(([_,b])=>b.active);
+  if(!list.length){grid.innerHTML=`<div class="empty"><i class="fa-solid fa-tag"></i><div>No active offers right now</div></div>`;return}
+  grid.innerHTML=list.map(([id,b])=>`
+    <div class="banner-card" style="background-image:url('${escapeHTML(b.image||'')}')">
+      <h3>${escapeHTML(b.title||"")}</h3>
+      <p>${escapeHTML(b.subtitle||"")}</p>
+      <a class="btn" href="${escapeHTML(b.ctaLink||'#booking')}">${escapeHTML(b.ctaText||"Book Now")} <i class="fa-solid fa-arrow-right"></i></a>
+    </div>`).join("");
+}
+
+/* =======================================================
+   GALLERY
+======================================================= */
+function renderGallery(){
+  const grid=$("#galleryGrid");
+  const list=Object.values(GALLERY);
+  if(!list.length){grid.innerHTML=`<div class="empty"><i class="fa-regular fa-image"></i><div>No gallery images yet</div></div>`;return}
+  grid.innerHTML=list.map(g=>`
+    <figure>
+      <img src="${escapeHTML(g.image)}" alt="${escapeHTML(g.caption||'Gallery')}" onerror="this.src='https://via.placeholder.com/600x400?text=Image'">
+      <figcaption>${escapeHTML(g.caption||"")} ${g.category?'· '+escapeHTML(g.category):''}</figcaption>
+    </figure>`).join("");
+}
+
+/* =======================================================
+   BLOGS
+======================================================= */
+function renderBlogs(){
+  const grid=$("#blogsGrid");
+  const list=Object.entries(BLOGS).filter(([_,b])=>b.status!=="Draft");
+  if(!list.length){grid.innerHTML=`<div class="empty"><i class="fa-regular fa-newspaper"></i><div>No blogs yet</div></div>`;return}
+  grid.innerHTML=list.map(([id,b])=>`
+    <div class="blog-card" onclick="openBlog('${id}')">
+      <div class="img" style="background-image:url('${escapeHTML(b.coverImage||'')}')"></div>
+      <div class="body">
+        <span class="cat">${escapeHTML(b.category||"Article")}</span>
+        <h3>${escapeHTML(b.title||"")}</h3>
+        <p>${escapeHTML(b.shortDescription||"")}</p>
+        <div class="meta"><span>${escapeHTML(b.publishDate||"")}</span><span class="more">Read more <i class="fa-solid fa-arrow-right"></i></span></div>
+      </div>
+    </div>`).join("");
+}
+function openBlog(id){
+  const b=BLOGS[id];if(!b)return;
+  openModal(b.title,`
+    ${b.coverImage?`<img class="lg-img" src="${escapeHTML(b.coverImage)}">`:""}
+    <span class="cat" style="display:inline-block;padding:4px 10px;border-radius:20px;background:var(--beige);color:var(--green-800);font-size:11px;font-weight:600;margin-bottom:10px;text-transform:uppercase;letter-spacing:1px">${escapeHTML(b.category||"Article")}</span>
+    <div style="color:var(--text-soft);font-size:13px;margin-bottom:14px">${escapeHTML(b.publishDate||"")}</div>
+    <p>${nlBr(b.content||"")}</p>
+  `);
+}
+
+/* =======================================================
+   ATTRACTIONS
+======================================================= */
+function renderAttractions(){
+  const grid=$("#attrGrid");
+  const list=Object.values(ATTRACTIONS||{});
+  if(!list.length){grid.innerHTML=`<div class="empty"><i class="fa-solid fa-location-dot"></i><div>Attractions coming soon</div></div>`;return}
+  grid.innerHTML=list.map(a=>`
+    <div class="attr-card">
+      <div class="img" style="background-image:url('${escapeHTML(a.image||'')}')"></div>
+      <div class="body">
+        <h4>${escapeHTML(a.name||"")}</h4>
+        <div class="dist"><i class="fa-solid fa-route"></i> ${escapeHTML(a.distance||"")}</div>
+        <p>${escapeHTML(a.description||"")}</p>
+        ${a.mapLink?`<a href="${escapeHTML(a.mapLink)}" target="_blank">View on Map <i class="fa-solid fa-arrow-up-right-from-square"></i></a>`:""}
+      </div>
+    </div>`).join("");
+}
+
+/* =======================================================
+   TESTIMONIALS
+======================================================= */
+function renderTestimonials(){
+  const grid=$("#testiGrid");
+  const list=Object.values(TESTIMONIALS);
+  if(!list.length){grid.innerHTML=`<div class="empty"><i class="fa-regular fa-comment"></i><div>No reviews yet</div></div>`;return}
+  grid.innerHTML=list.map(t=>{
+    const initial=(t.guestName||"G").charAt(0).toUpperCase();
+    const stars=Array(5).fill(0).map((_,i)=>`<i class="fa${i<(t.rating||5)?'-solid':'-regular'} fa-star"></i>`).join("");
+    return `
+    <div class="testi-card">
+      <div class="quote"><i class="fa-solid fa-quote-left"></i></div>
+      <div class="stars">${stars}</div>
+      <p>"${escapeHTML(t.review||"")}"</p>
+      <div class="testi-author">
+        <div class="av" style="${t.image?`background-image:url('${escapeHTML(t.image)}')`:''}">${t.image?'':initial}</div>
+        <div class="nm">${escapeHTML(t.guestName||"Guest")}</div>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+/* =======================================================
+   BOOKING SUBMISSION
+======================================================= */
+$("#bookingForm").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const f=e.target;
+  const data=Object.fromEntries(new FormData(f).entries());
+  if(new Date(data.checkOut)<=new Date(data.checkIn)){toast("Check-out must be after check-in","error");return}
+  const room=ROOMS[data.roomId];
+  if(!room){toast("Please choose a room","error");return}
+  if(room.availability==="Sold Out"||room.availability==="Under Maintenance"){toast("Room is not available","error");return}
+
+  const bookingId=genBookingId();
+  const payload={
+    bookingId,
+    guestName:data.guestName,
+    phone:data.phone,
+    email:data.email||"",
+    roomId:data.roomId,
+    roomName:room.name,
+    checkIn:data.checkIn,
+    checkOut:data.checkOut,
+    guests:Number(data.guests),
+    specialRequest:data.specialRequest||"",
+    status:"Pending",
+    createdAt:new Date().toISOString()
+  };
+  try{
+    const ref=await db.ref("bookings").push(payload);
+    f.reset();
+    showConfirmation(payload);
+  }catch(err){toast("Booking failed. Try again.","error");console.error(err)}
+});
+
+function showConfirmation(b){
+  const waNum=(SETTINGS.whatsapp||"").replace(/\D/g,"");
+  const msg=`Hi Saryu Sankul,%0A%0AI just submitted a booking:%0A%0A*Booking ID:* ${b.bookingId}%0A*Name:* ${b.guestName}%0A*Room:* ${b.roomName}%0A*Check-in:* ${b.checkIn}%0A*Check-out:* ${b.checkOut}%0A*Guests:* ${b.guests}%0A%0APlease confirm. Thank you!`;
+  const wa=`https://wa.me/${waNum}?text=${msg}`;
+  openModal("Booking Received",`
+    <div class="confirm-box">
+      <div class="tick"><i class="fa-solid fa-check"></i></div>
+      <h2>Thank you, ${escapeHTML(b.guestName)}!</h2>
+      <p>Your booking request has been received.</p>
+      <div class="bid">${b.bookingId}</div>
+      <div class="confirm-info">
+        <div><b>Room</b><span>${escapeHTML(b.roomName)}</span></div>
+        <div><b>Check-in</b><span>${b.checkIn}</span></div>
+        <div><b>Check-out</b><span>${b.checkOut}</span></div>
+        <div><b>Guests</b><span>${b.guests}</span></div>
+        <div><b>Status</b><span style="color:#a07300;font-weight:600">Pending</span></div>
+      </div>
+      <p style="font-size:13px;color:var(--text-soft)">Our team will contact you soon to confirm payment and availability.</p>
+      <div style="display:flex;gap:10px;justify-content:center;margin-top:18px;flex-wrap:wrap">
+        <a href="${wa}" target="_blank" class="btn btn-whatsapp"><i class="fa-brands fa-whatsapp"></i> Send on WhatsApp</a>
+        <button class="btn btn-outline" onclick="closeModal()">Close</button>
+      </div>
+    </div>
+  `);
+  toast("Booking submitted!","success");
+}
+
+/* =======================================================
+   INQUIRY FORM
+======================================================= */
+$("#inquiryForm").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const f=e.target;
+  const data=Object.fromEntries(new FormData(f).entries());
+  data.createdAt=new Date().toISOString();
+  try{
+    await db.ref("inquiries").push(data);
+    f.reset();
+    toast("Message sent! We'll get back soon.","success");
+  }catch(err){toast("Failed to send. Try again.","error")}
+});
+
+/* =======================================================
+   FAQ
+======================================================= */
+$$(".faq-item").forEach(item=>{
+  item.querySelector(".faq-q").addEventListener("click",()=>item.classList.toggle("open"));
+});
+
+/* =======================================================
+   BOTTOM NAV ACTIVE STATE
+======================================================= */
+window.addEventListener("scroll",()=>{
+  const links=$$(".bottom-nav a");
+  let cur="home";
+  ["home","rooms","booking","gallery","contact"].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el && window.scrollY+120>=el.offsetTop)cur=id;
+  });
+  links.forEach(a=>{a.classList.toggle("active",a.getAttribute("href")==="#"+cur)});
+});
+
+/* =======================================================
+   FIREBASE LISTENERS
+======================================================= */
+db.ref("settings").on("value",s=>applySettings(s.val()||{}));
+db.ref("rooms").on("value",s=>{ROOMS=s.val()||{};refreshRoomSelect();renderRooms()});
+db.ref("banners").on("value",s=>{BANNERS=s.val()||{};renderBanners()});
+db.ref("gallery").on("value",s=>{GALLERY=s.val()||{};renderGallery()});
+db.ref("blogs").on("value",s=>{BLOGS=s.val()||{};renderBlogs()});
+db.ref("testimonials").on("value",s=>{TESTIMONIALS=s.val()||{};renderTestimonials()});
+db.ref("attractions").on("value",s=>{ATTRACTIONS=s.val()||{};renderAttractions()});
+
+/* =======================================================
+   INIT
+======================================================= */
+$("#yr").textContent=new Date().getFullYear();
+window.addEventListener("load",()=>{
+  setTimeout(()=>{$("#loader").classList.add("hide");setTimeout(()=>$("#loader").remove(),600)},700);
+});
+
+// fallback to remove loader if firebase slow
+setTimeout(()=>{const l=$("#loader");if(l)l.classList.add("hide")},3500);
+</script>
+</body>
+</html>

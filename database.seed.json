@@ -1,0 +1,15 @@
+{
+  "adminCredentials": {
+    "adminId": "admin",
+    "password": "123456"
+  },
+  "settings": {},
+  "rooms": {},
+  "bookings": {},
+  "blogs": {},
+  "banners": {},
+  "gallery": {},
+  "testimonials": {},
+  "attractions": {},
+  "inquiries": {}
+}
