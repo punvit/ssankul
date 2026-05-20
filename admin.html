@@ -193,10 +193,32 @@ tr:hover{background:var(--surface-2)}
 .checkbox{display:flex;align-items:center;gap:8px}
 .checkbox input{width:18px;height:18px}
 
+/* ===== RICH TEXT EDITOR ===== */
+.editor-wrap{border:1px solid var(--border);border-radius:10px;overflow:hidden;background:var(--bg);margin-top:4px}
+.editor-toolbar{display:flex;gap:4px;padding:8px;border-bottom:1px solid var(--border);background:var(--surface-2);flex-wrap:wrap}
+.editor-toolbar button{
+  width:32px;height:32px;border-radius:6px;border:none;background:transparent;color:var(--text);cursor:pointer;
+  display:inline-flex;align-items:center;justify-content:center;font-size:13px;transition:.15s;
+}
+.editor-toolbar button:hover{background:var(--beige);color:var(--green-800)}
+.editor-toolbar .sep{width:1px;background:var(--border);margin:0 4px;flex-shrink:0}
+.editor-content{padding:14px;min-height:240px;max-height:420px;overflow-y:auto;line-height:1.7;font-size:14px;color:var(--text)}
+.editor-content:empty:before{content:"Write your article here...";color:var(--text-soft);font-style:italic}
+.editor-content:focus{outline:none}
+.editor-content h1,.editor-content h2,.editor-content h3{margin:12px 0 8px;color:var(--green-900);font-family:'Playfair Display',serif}
+.editor-content h1{font-size:22px}
+.editor-content h2{font-size:19px}
+.editor-content h3{font-size:16px}
+.editor-content p{margin-bottom:10px}
+.editor-content ul,.editor-content ol{margin:8px 0 8px 20px;padding-left:14px}
+.editor-content a{color:var(--green-700);text-decoration:underline}
+.editor-content blockquote{border-left:3px solid var(--gold);padding-left:12px;color:var(--text-soft);font-style:italic;margin:10px 0}
+.editor-content img{max-width:100%;border-radius:8px;margin:8px 0}
+
 /* ===== MODAL ===== */
 .modal-mask{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;z-index:500;padding:20px}
 .modal-mask.show{display:flex}
-.modal{background:var(--surface);border-radius:var(--radius-lg);max-width:720px;width:100%;max-height:92vh;overflow-y:auto;box-shadow:0 30px 80px rgba(0,0,0,.3);animation:slide .3s}
+.modal{background:var(--surface);border-radius:var(--radius-lg);max-width:800px;width:100%;max-height:92vh;overflow-y:auto;box-shadow:0 30px 80px rgba(0,0,0,.3);animation:slide .3s}
 @keyframes slide{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
 .modal-head{padding:18px 22px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--surface);z-index:2}
 .modal-head h3{font-size:20px;color:var(--green-900)}
@@ -226,6 +248,11 @@ tr:hover{background:var(--surface-2)}
   font-size:13px;color:var(--brown);margin-bottom:18px;
 }
 .setup-banner b{color:var(--green-900)}
+
+/* SEO helper in table */
+.seo-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:6px}
+.seo-dot.ok{background:var(--success)}
+.seo-dot.no{background:var(--warn)}
 </style>
 </head>
 <body>
@@ -330,7 +357,7 @@ tr:hover{background:var(--surface-2)}
       <div class="panel-card">
         <div class="panel-head"><h2>Blog Management</h2><button class="btn btn-primary" onclick="openBlogForm()"><i class="fa-solid fa-plus"></i> Add Blog</button></div>
         <div class="tbl-wrap"><table>
-          <thead><tr><th>Cover</th><th>Title</th><th>Category</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
+          <thead><tr><th>Cover</th><th>Title</th><th>Category</th><th>SEO</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
           <tbody id="blogsTable"></tbody>
         </table></div>
       </div>
@@ -447,7 +474,7 @@ tr:hover{background:var(--surface-2)}
 
 <script>
 /* ======================================================
-   FIREBASE CONFIG — replace with your project's values
+   FIREBASE CONFIG
 ====================================================== */
 const firebaseConfig = {
   apiKey: "AIzaSyA7o7B7wJuo7c75hBX4Zc8AmyG-Zi_iYCI",
@@ -471,6 +498,21 @@ function fmtDate(s){if(!s)return "—";try{return new Date(s).toLocaleString('en
 function openModal(title,body){$("#modalTitle").textContent=title;$("#modalBody").innerHTML=body;$("#modalMask").classList.add("show");document.body.style.overflow="hidden"}
 function closeModal(){$("#modalMask").classList.remove("show");document.body.style.overflow=""}
 $("#modalMask").addEventListener("click",e=>{if(e.target.id==="modalMask")closeModal()});
+
+/* ============== RICH EDITOR HELPERS ============== */
+function execCmd(command,value=null){
+  document.execCommand(command,false,value);
+  const ed=document.getElementById("blogEditor");
+  if(ed) ed.focus();
+}
+function insertLink(){
+  const url=prompt("Enter link URL (external or internal):","https://");
+  if(url && url!=="https://") execCmd('createLink',url);
+}
+function insertImageUrl(){
+  const url=prompt("Enter image URL:");
+  if(url) execCmd('insertImage',url);
+}
 
 /* ============== LOGIN ============== */
 async function checkLogin(){
@@ -660,42 +702,93 @@ async function updateBookingStatus(id,status){
 function renderBlogsTable(){
   const tbody=$("#blogsTable");
   const list=Object.entries(BLOGS);
-  if(!list.length){tbody.innerHTML='<tr><td colspan="6" class="empty"><i class="fa-regular fa-newspaper"></i>No blogs yet</td></tr>';return}
-  tbody.innerHTML=list.map(([id,b])=>`
+  if(!list.length){tbody.innerHTML='<tr><td colspan="7" class="empty"><i class="fa-regular fa-newspaper"></i>No blogs yet</td></tr>';return}
+  tbody.innerHTML=list.map(([id,b])=>{
+    const hasSeo=(b.metaTitle||b.keywords||b.metaDescription)?true:false;
+    return `
     <tr>
       <td><img class="preview-img" src="${esc(b.coverImage||'https://via.placeholder.com/120x80?text=Blog')}" onerror="this.src='https://via.placeholder.com/120x80?text=Blog'"></td>
-      <td><b>${esc(b.title)}</b></td>
+      <td><b>${esc(b.title)}</b>${b.slug?`<br><small style="color:var(--text-soft)">/${esc(b.slug)}</small>`:""}</td>
       <td>${esc(b.category||"")}</td>
+      <td><span class="seo-dot ${hasSeo?'ok':'no'}"></span>${hasSeo?'Good':'Basic'}</td>
       <td>${esc(b.publishDate||"")}</td>
       <td><span class="status-pill st-${b.status==='Draft'?'Pending':'Confirmed'}">${esc(b.status||"Published")}</span></td>
       <td><div class="row-actions">
         <button class="btn-info" style="color:#fff" onclick="openBlogForm('${id}')"><i class="fa-solid fa-pen"></i></button>
         <button class="btn-danger" style="color:#fff" onclick="deleteItem('blogs','${id}','Delete this blog?')"><i class="fa-solid fa-trash"></i></button>
       </div></td>
-    </tr>`).join("");
+    </tr>`;
+  }).join("");
 }
 function openBlogForm(id){
   const b=id?(BLOGS[id]||{}):{};
+  const today=b.publishDate||(new Date().toISOString().slice(0,10));
   openModal(id?"Edit Blog":"Add Blog",`
     <form class="form-grid" onsubmit="saveBlog(event,'${id||""}')">
-      <div class="field full"><label>Title *</label><input name="title" required value="${esc(b.title||"")}"></div>
+      <div class="field full"><label>Title *</label><input name="title" required value="${esc(b.title||"")}" oninput="document.getElementById('metaTitleFld').value=this.value"></div>
+
+      <div class="field"><label>Slug (URL friendly)</label><input name="slug" value="${esc(b.slug||"")}" placeholder="my-article-url"></div>
       <div class="field"><label>Category</label><input name="category" value="${esc(b.category||"")}" placeholder="Travel Guide"></div>
-      <div class="field"><label>Publish Date</label><input name="publishDate" type="date" value="${esc(b.publishDate||new Date().toISOString().slice(0,10))}"></div>
-      <div class="field full"><label>Cover Image URL</label><input name="coverImage" value="${esc(b.coverImage||"")}"></div>
-      <div class="field full"><label>Short Description</label><textarea name="shortDescription">${esc(b.shortDescription||"")}</textarea></div>
-      <div class="field full"><label>Full Article *</label><textarea name="content" required style="min-height:180px">${esc(b.content||"")}</textarea></div>
+
+      <div class="field full"><label>Meta Title (SEO)</label><input name="metaTitle" id="metaTitleFld" value="${esc(b.metaTitle||b.title||"")}" placeholder="SEO title (50-60 chars)"></div>
+      <div class="field full"><label>Meta Description (SEO)</label><textarea name="metaDescription" maxlength="160" placeholder="Brief description for search engines (150-160 chars)...">${esc(b.metaDescription||"")}</textarea></div>
+
+      <div class="field"><label>Keywords / Tags</label><input name="keywords" value="${esc(b.keywords||"")}" placeholder="nature, homestay, kumaon..."></div>
+      <div class="field"><label>Author</label><input name="author" value="${esc(b.author||"")}" placeholder="Admin"></div>
+      <div class="field"><label>Publish Date</label><input name="publishDate" type="date" value="${esc(today)}"></div>
+
+      <div class="field full"><label>Cover Image URL</label><input name="coverImage" value="${esc(b.coverImage||"")}" placeholder="https://..."></div>
+      <div class="field full"><label>Short Description</label><textarea name="shortDescription" maxlength="300" placeholder="Card preview text...">${esc(b.shortDescription||"")}</textarea></div>
+
+      <div class="field full">
+        <label>Full Article *</label>
+        <div class="editor-wrap">
+          <div class="editor-toolbar">
+            <button type="button" onclick="execCmd('bold')" title="Bold"><i class="fa-solid fa-bold"></i></button>
+            <button type="button" onclick="execCmd('italic')" title="Italic"><i class="fa-solid fa-italic"></i></button>
+            <button type="button" onclick="execCmd('underline')" title="Underline"><i class="fa-solid fa-underline"></i></button>
+            <span class="sep"></span>
+            <button type="button" onclick="execCmd('formatBlock','H1')" title="Heading 1"><i class="fa-solid fa-heading"></i>1</button>
+            <button type="button" onclick="execCmd('formatBlock','H2')" title="Heading 2"><i class="fa-solid fa-heading"></i>2</button>
+            <button type="button" onclick="execCmd('formatBlock','H3')" title="Heading 3"><i class="fa-solid fa-heading"></i>3</button>
+            <button type="button" onclick="execCmd('formatBlock','P')" title="Paragraph"><i class="fa-solid fa-paragraph"></i></button>
+            <span class="sep"></span>
+            <button type="button" onclick="insertLink()" title="Insert Link"><i class="fa-solid fa-link"></i></button>
+            <button type="button" onclick="execCmd('unlink')" title="Remove Link"><i class="fa-solid fa-link-slash"></i></button>
+            <span class="sep"></span>
+            <button type="button" onclick="execCmd('insertUnorderedList')" title="Bullet List"><i class="fa-solid fa-list-ul"></i></button>
+            <button type="button" onclick="execCmd('insertOrderedList')" title="Numbered List"><i class="fa-solid fa-list-ol"></i></button>
+            <span class="sep"></span>
+            <button type="button" onclick="insertImageUrl()" title="Insert Image URL"><i class="fa-regular fa-image"></i></button>
+            <span class="sep"></span>
+            <button type="button" onclick="execCmd('justifyLeft')" title="Align Left"><i class="fa-solid fa-align-left"></i></button>
+            <button type="button" onclick="execCmd('justifyCenter')" title="Align Center"><i class="fa-solid fa-align-center"></i></button>
+            <button type="button" onclick="execCmd('removeFormat')" title="Clear Format"><i class="fa-solid fa-eraser"></i></button>
+          </div>
+          <div class="editor-content" id="blogEditor" contenteditable="true">${b.content||""}</div>
+        </div>
+        <input type="hidden" name="content" id="blogContentInput">
+      </div>
+
       <div class="field"><label>Status</label><select name="status">${["Published","Draft"].map(o=>`<option ${b.status===o?'selected':''}>${o}</option>`).join("")}</select></div>
       <div class="full" style="display:flex;gap:10px;justify-content:flex-end"><button type="button" class="btn btn-ghost" onclick="closeModal()">Cancel</button><button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Save Blog</button></div>
     </form>`);
+  setTimeout(()=>{const ed=document.getElementById("blogEditor");if(ed)ed.focus();},120);
 }
 async function saveBlog(e,id){
   e.preventDefault();
   const data=Object.fromEntries(new FormData(e.target).entries());
+  const editor=document.getElementById("blogEditor");
+  data.content=editor?editor.innerHTML:"";
+  // Clean empty contenteditable artifacts if needed
+  if(!data.content.trim() || data.content==="<br>" || data.content==="<div><br></div>"){
+    toast("Article content cannot be empty","error");return;
+  }
   try{
     if(id) await db.ref("blogs/"+id).update(data);
     else await db.ref("blogs").push(data);
     closeModal();toast("Blog saved","success");
-  }catch(err){toast("Save failed","error")}
+  }catch(err){toast("Save failed","error");console.error(err)}
 }
 
 /* ============== BANNERS ============== */
