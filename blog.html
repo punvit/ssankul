@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title id="pageTitle">Blog — Saryu Sankul</title>
+<meta name="description" id="pageDesc" content="Read our latest articles and travel guides." />
+<link rel="canonical" id="canonicalLink" href="" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+:root{
+  --green-900:#1f3a2e;--green-800:#2d5240;--green-700:#3b6b54;--green-500:#5a8f74;
+  --gold:#c8a26b;--gold-2:#b48a4f;
+  --ivory:#fbf7ef;--beige:#efe5d2;--brown:#6b4f35;--brown-soft:#8a6a4c;
+  --text:#2a2a2a;--text-soft:#5e5e5e;--white:#ffffff;
+  --shadow-sm:0 4px 14px rgba(31,58,46,.08);
+  --shadow-md:0 10px 30px rgba(31,58,46,.12);
+  --shadow-lg:0 20px 50px rgba(31,58,46,.18);
+  --radius-sm:12px;--radius:18px;--radius-lg:26px;
+  --bg:var(--ivory);--surface:#ffffff;--surface-2:#fff8ec;
+  --border:rgba(31,58,46,.10);
+}
+[data-theme="dark"]{
+  --ivory:#13181a;--beige:#1a2225;--text:#ece6d8;--text-soft:#bcb6a6;
+  --white:#1c2326;--surface:#1a2225;--surface-2:#202a2d;--border:rgba(200,162,107,.18);--bg:#0f1416;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;padding-bottom:60px}
+h1,h2,h3,h4,h5,.serif{font-family:'Playfair Display',serif;letter-spacing:.2px}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+button{font-family:inherit;cursor:pointer;border:none;outline:none}
+input,textarea,select{font-family:inherit;outline:none}
+
+/* ====== READING PROGRESS BAR ====== */
+.reading-progress{
+  position:fixed;top:0;left:0;width:0%;height:4px;
+  background:linear-gradient(90deg,var(--gold),var(--gold-2));
+  z-index:9999;transition:width .1s linear;
+  box-shadow:0 0 10px rgba(200,162,107,.5);
+}
+.reading-progress::after{
+  content:'';position:absolute;right:0;top:-3px;
+  width:10px;height:10px;border-radius:50%;
+  background:var(--gold);box-shadow:0 0 8px rgba(200,162,107,.6);
+}
+
+/* ====== HEADER ====== */
+header.top{
+  position:sticky;top:0;z-index:100;
+  background:rgba(251,247,239,.85);
+  backdrop-filter:saturate(160%) blur(14px);
+  -webkit-backdrop-filter:saturate(160%) blur(14px);
+  border-bottom:1px solid var(--border);
+}
+[data-theme="dark"] header.top{background:rgba(19,24,26,.8)}
+.nav{max-width:1240px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand .logo{width:46px;height:46px;border-radius:14px;background:linear-gradient(135deg,var(--green-700),var(--green-900));color:var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:22px;font-weight:700}
+.brand .name{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;line-height:1}
+.brand .tag{font-size:11px;color:var(--text-soft);letter-spacing:1px;text-transform:uppercase}
+.nav-links{display:flex;gap:6px;align-items:center}
+.nav-links a{padding:9px 14px;border-radius:10px;font-size:14px;font-weight:500;color:var(--text);transition:.25s}
+.nav-links a:hover{background:var(--beige);color:var(--green-800)}
+.theme-btn{width:38px;height:38px;border-radius:50%;background:var(--beige);display:flex;align-items:center;justify-content:center;color:var(--green-800)}
+
+/* ====== ARTICLE HERO ====== */
+.article-hero{
+  position:relative;min-height:50vh;display:flex;align-items:flex-end;
+  padding:40px 20px 50px;color:#fff;overflow:hidden;
+}
+.article-hero-bg{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center}
+.article-hero::after{
+  content:'';position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg,rgba(15,30,22,.3) 0%,rgba(15,30,22,.85) 100%);
+}
+.article-hero-inner{position:relative;z-index:2;max-width:860px;margin:0 auto;width:100%}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#fff;opacity:.85;font-size:13px;margin-bottom:16px;transition:.2s}
+.back-link:hover{opacity:1}
+.back-link:hover .back-arrow{transform:translateX(-4px)}
+.back-arrow{transition:transform .2s}
+.article-hero-inner .cat{display:inline-block;padding:5px 12px;border-radius:20px;background:var(--gold);color:#fff;font-size:11px;font-weight:600;margin-bottom:14px;text-transform:uppercase;letter-spacing:1px}
+.article-hero-inner h1{font-size:clamp(24px,4vw,40px);font-weight:700;line-height:1.2;margin-bottom:14px;text-shadow:0 2px 12px rgba(0,0,0,.3)}
+.article-meta{display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-size:13px;color:#eadfc7}
+.article-meta span{display:inline-flex;align-items:center;gap:6px}
+.article-meta i{color:var(--gold)}
+
+/* ====== ARTICLE CONTAINER ====== */
+.article-container{max-width:780px;margin:0 auto;padding:40px 20px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.tag-pill{display:inline-block;padding:4px 12px;border-radius:20px;background:var(--surface-2);border:1px solid var(--border);font-size:12px;color:var(--text-soft)}
+.tag-pill:hover{background:var(--beige);color:var(--green-800)}
+
+/* ====== BLOG CONTENT ====== */
+.blog-article{font-size:15px;line-height:1.8;color:var(--text)}
+.blog-article h1,.blog-article h2,.blog-article h3{color:var(--green-900);font-family:'Playfair Display',serif;margin:24px 0 12px;line-height:1.3}
+[data-theme="dark"] .blog-article h1,[data-theme="dark"] .blog-article h2,[data-theme="dark"] .blog-article h3{color:var(--gold)}
+.blog-article h1{font-size:26px}
+.blog-article h2{font-size:22px}
+.blog-article h3{font-size:18px}
+.blog-article p{margin-bottom:16px}
+.blog-article ul,.blog-article ol{margin:10px 0 14px 22px;padding-left:14px}
+.blog-article li{margin-bottom:6px}
+.blog-article a{color:var(--green-700);text-decoration:underline;font-weight:500}
+.blog-article a:hover{color:var(--green-900)}
+.blog-article blockquote{border-left:3px solid var(--gold);padding:12px 18px;background:var(--surface-2);border-radius:0 10px 10px 0;font-style:italic;color:var(--text-soft);margin:18px 0;font-size:16px}
+.blog-article img{max-width:100%;border-radius:12px;margin:18px 0;box-shadow:var(--shadow-sm)}
+.blog-article strong{font-weight:600}
+.blog-article em{font-style:italic}
+.blog-article u{text-decoration:underline;text-decoration-color:var(--gold);text-underline-offset:3px}
+.blog-article table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px}
+.blog-article th,.blog-article td{border:1px solid var(--border);padding:10px 14px;text-align:left}
+.blog-article th{background:var(--surface-2);font-weight:600;color:var(--green-900);font-family:'Playfair Display',serif}
+[data-theme="dark"] .blog-article th{color:var(--gold)}
+.blog-article pre{background:#1a2225;color:#dce7df;padding:18px;border-radius:12px;overflow-x:auto;font-family:'Fira Code',monospace;font-size:13px;margin:16px 0}
+.blog-article code{background:rgba(200,162,107,.15);padding:2px 6px;border-radius:4px;font-family:'Fira Code',monospace;font-size:13px;color:var(--green-800)}
+[data-theme="dark"] .blog-article code{color:var(--gold)}
+.blog-article pre code{background:none;padding:0;color:inherit}
+
+/* ====== SHARE BAR ====== */
+.share-section{padding:24px 0;border-top:1px dashed var(--border);border-bottom:1px dashed var(--border);margin:30px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.share-section h4{font-size:14px;color:var(--text-soft);font-weight:500}
+.share-buttons{display:flex;gap:8px;flex-wrap:wrap}
+.share-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;transition:.2s;border:1px solid var(--border);background:var(--surface-2);color:var(--text)}
+.share-btn:hover{transform:translateY(-2px)}
+.share-btn.wa:hover{background:#25D366;color:#fff;border-color:#25D366}
+.share-btn.fb:hover{background:#1877f2;color:#fff;border-color:#1877f2}
+.share-btn.tw:hover{background:#0f1419;color:#fff;border-color:#0f1419}
+.share-btn.li:hover{background:#0a66c2;color:#fff;border-color:#0a66c2}
+.share-btn.copy:hover{background:var(--green-700);color:#fff;border-color:var(--green-700)}
+
+/* ====== RELATED POSTS ====== */
+.related-section{margin:40px 0}
+.related-section h3{font-size:22px;color:var(--green-900);margin-bottom:20px;display:flex;align-items:center;gap:10px}
+[data-theme="dark"] .related-section h3{color:var(--gold)}
+.related-section h3 i{color:var(--gold)}
+.related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
+.related-card{
+  background:var(--surface);border-radius:var(--radius);overflow:hidden;
+  box-shadow:var(--shadow-sm);border:1px solid var(--border);transition:.3s;cursor:pointer;
+}
+.related-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}
+.related-card .rimg{height:140px;background-size:cover;background-position:center;background-color:#ddd}
+.related-card .rbody{padding:14px}
+.related-card h4{font-size:14px;color:var(--green-900);line-height:1.4;margin-bottom:6px}
+[data-theme="dark"] .related-card h4{color:var(--gold)}
+.related-card .rmeta{font-size:11px;color:var(--text-soft)}
+
+/* ====== SUBSCRIBE SECTION ====== */
+.subscribe-section{
+  background:linear-gradient(135deg,var(--green-900),var(--green-700));
+  border-radius:var(--radius-lg);padding:36px;margin:40px 0;text-align:center;color:#fff;
+}
+.subscribe-section h3{font-size:24px;margin-bottom:8px;color:var(--gold)}
+.subscribe-section p{font-size:14px;opacity:.85;margin-bottom:20px;max-width:480px;margin-left:auto;margin-right:auto}
+.subscribe-form{display:flex;gap:10px;max-width:440px;margin:0 auto;flex-wrap:wrap;justify-content:center}
+.subscribe-form input{flex:1;min-width:200px;padding:13px 16px;border-radius:50px;border:none;font-size:14px;background:rgba(255,255,255,.15);color:#fff;backdrop-filter:blur(8px)}
+.subscribe-form input::placeholder{color:rgba(255,255,255,.6)}
+.subscribe-form input:focus{background:rgba(255,255,255,.25);outline:none}
+.subscribe-form button{padding:13px 24px;border-radius:50px;background:linear-gradient(135deg,var(--gold),var(--gold-2));color:#fff;font-weight:600;font-size:14px;border:none;cursor:pointer;transition:.25s;white-space:nowrap}
+.subscribe-form button:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(200,162,107,.4)}
+.subscribe-note{font-size:11px;opacity:.6;margin-top:10px}
+
+/* ====== COMMENTS SECTION ====== */
+.comments-section{margin:40px 0}
+.comments-section h3{font-size:22px;color:var(--green-900);margin-bottom:20px;display:flex;align-items:center;gap:10px}
+[data-theme="dark"] .comments-section h3{color:var(--gold)}
+.comments-section h3 i{color:var(--gold)}
+.comments-section h3 .count{display:inline-flex;align-items:center;justify-content:center;min-width:28px;height:28px;border-radius:50%;background:var(--gold);color:#fff;font-size:12px;font-weight:700}
+.comment-form{
+  background:var(--surface);border-radius:var(--radius);padding:20px;
+  border:1px solid var(--border);margin-bottom:24px;
+}
+.comment-form h4{font-size:15px;color:var(--green-900);margin-bottom:14px}
+[data-theme="dark"] .comment-form h4{color:var(--gold)}
+.comment-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+@media(max-width:500px){.comment-fields{grid-template-columns:1fr}}
+.comment-fields input{width:100%;padding:11px 14px;border:1px solid var(--border);border-radius:10px;background:var(--bg);font-size:14px;color:var(--text)}
+.comment-fields input:focus{border-color:var(--gold)}
+.comment-form textarea{width:100%;padding:12px 14px;border:1px solid var(--border);border-radius:10px;background:var(--bg);font-size:14px;color:var(--text);resize:vertical;min-height:90px;margin-bottom:12px;font-family:inherit}
+.comment-form textarea:focus{border-color:var(--gold)}
+.comment-form button{padding:11px 20px;border-radius:10px;background:linear-gradient(135deg,var(--gold),var(--gold-2));color:#fff;font-weight:600;font-size:13px;border:none;cursor:pointer;transition:.25s}
+.comment-form button:hover{transform:translateY(-1px)}
+
+.comments-list{display:flex;flex-direction:column;gap:16px}
+.comment-item{
+  background:var(--surface);border-radius:var(--radius);padding:18px;
+  border:1px solid var(--border);display:flex;gap:14px;
+}
+.comment-item .avatar{
+  width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--green-700),var(--green-900));
+  color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;flex-shrink:0;
+}
+.comment-item .cmain{flex:1}
+.comment-item .cname{font-weight:600;font-size:14px;color:var(--green-900);margin-bottom:2px}
+[data-theme="dark"] .comment-item .cname{color:var(--gold)}
+.comment-item .cdate{font-size:11px;color:var(--text-soft);margin-bottom:8px}
+.comment-item .ctext{font-size:14px;line-height:1.6}
+.no-comments{text-align:center;padding:30px 20px;color:var(--text-soft);font-size:14px}
+.no-comments i{font-size:32px;color:var(--gold);margin-bottom:10px;display:block}
+
+/* ====== TOAST ====== */
+#toast{position:fixed;top:24px;left:50%;transform:translateX(-50%) translateY(-20px);background:var(--green-900);color:#fff;padding:13px 22px;border-radius:30px;font-size:14px;z-index:5000;opacity:0;transition:.3s;box-shadow:var(--shadow-md);display:flex;align-items:center;gap:8px}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+#toast.success{background:#0d6f3a}
+#toast.error{background:#b00020}
+
+/* ====== FOOTER ====== */
+footer{background:var(--green-900);color:#cbd6cd;padding:50px 20px 30px;margin-top:50px}
+.foot-grid{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:30px}
+.foot-grid h4{color:var(--gold);font-family:'Playfair Display',serif;margin-bottom:14px}
+.foot-grid a{display:block;font-size:13px;color:#cbd6cd;margin-bottom:6px;transition:.2s}
+.foot-grid a:hover{color:var(--gold)}
+.copy{text-align:center;margin-top:30px;padding-top:20px;border-top:1px solid rgba(255,255,255,.1);font-size:12px;color:#9aa89e}
+</style>
+</head>
+<body>
+
+<!-- Reading Progress Bar -->
+<div class="reading-progress" id="readingProgress"></div>
+
+<!-- Header -->
+<header class="top">
+  <div class="nav">
+    <div class="brand">
+      <a href="user.html#blogs">
+        <div class="logo">S</div>
+        <div>
+          <div class="name" id="brandName">Saryu Sankul</div>
+          <div class="tag" id="brandTag">Premium Homestay</div>
+        </div>
+      </a>
+    </div>
+    <nav class="nav-links">
+      <a href="user.html#home">Home</a>
+      <a href="user.html#rooms">Rooms</a>
+      <a href="user.html#gallery">Gallery</a>
+      <a href="user.html#blogs">Blogs</a>
+      <a href="user.html#contact">Contact</a>
+      <button class="theme-btn" id="themeBtn"><i class="fa-solid fa-moon"></i></button>
+    </nav>
+  </div>
+</header>
+
+<!-- Article Hero -->
+<section class="article-hero">
+  <div class="article-hero-bg" id="articleBg"></div>
+  <div class="article-hero-inner">
+    <a href="user.html#blogs" class="back-link">
+      <span class="back-arrow"><i class="fa-solid fa-arrow-left"></i></span> Back to Blogs
+    </a>
+    <span class="cat" id="articleCat">Article</span>
+    <h1 id="articleTitle">Loading...</h1>
+    <div class="article-meta">
+      <span id="articleDate"><i class="fa-regular fa-calendar"></i> —</span>
+      <span id="articleAuthor"><i class="fa-regular fa-user"></i> —</span>
+      <span id="articleReadTime"><i class="fa-regular fa-clock"></i> —</span>
+    </div>
+  </div>
+</section>
+
+<!-- Main Content -->
+<div class="article-container">
+  <!-- Tags -->
+  <div class="tags" id="articleTags"></div>
+
+  <!-- Blog Content -->
+  <article class="blog-article" id="blogContent"></article>
+
+  <!-- Share Section -->
+  <div class="share-section">
+    <h4>Share this article</h4>
+    <div class="share-buttons" id="shareButtons"></div>
+  </div>
+
+  <!-- Subscribe Section -->
+  <div class="subscribe-section">
+    <h3>📬 Subscribe for Updates</h3>
+    <p>Get the latest travel tips, stories and exclusive offers delivered to your inbox.</p>
+    <form class="subscribe-form" id="subscribeForm">
+      <input type="email" name="email" placeholder="Your email address" required>
+      <button type="submit"><i class="fa-solid fa-paper-plane"></i> Subscribe</button>
+    </form>
+    <div class="subscribe-note">No spam. Unsubscribe anytime. We respect your privacy.</div>
+  </div>
+
+  <!-- Related Posts -->
+  <div class="related-section">
+    <h3><i class="fa-solid fa-book-open"></i> Related Articles</h3>
+    <div class="related-grid" id="relatedGrid">
+      <div class="no-comments"><i class="fa-solid fa-newspaper"></i> Loading related posts...</div>
+    </div>
+  </div>
+
+  <!-- Comments Section -->
+  <div class="comments-section">
+    <h3><i class="fa-regular fa-comment-dots"></i> Comments <span class="count" id="commentCount">0</span></h3>
+    
+    <!-- Comment Form -->
+    <div class="comment-form">
+      <h4>Leave a Comment</h4>
+      <div class="comment-fields">
+        <input type="text" id="commentName" placeholder="Your name *" required>
+        <input type="email" id="commentEmail" placeholder="Your email (optional)">
+      </div>
+      <textarea id="commentText" placeholder="Write your comment here..." required></textarea>
+      <button onclick="submitComment()"><i class="fa-solid fa-paper-plane"></i> Post Comment</button>
+    </div>
+
+    <!-- Comments List -->
+    <div class="comments-list" id="commentsList">
+      <div class="no-comments"><i class="fa-regular fa-comments"></i> Be the first to comment on this article!</div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="foot-grid">
+    <div>
+      <h4 id="footName">Saryu Sankul</h4>
+      <p style="font-size:13px" id="footAbout">A peaceful premium homestay surrounded by nature.</p>
+    </div>
+    <div>
+      <h4>Quick Links</h4>
+      <a href="user.html#rooms">Rooms</a>
+      <a href="user.html#booking">Book Now</a>
+      <a href="user.html#gallery">Gallery</a>
+      <a href="user.html#blogs">Blogs</a>
+      <a href="user.html#contact">Contact</a>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <a id="fPhone" href="#">—</a>
+      <a id="fEmail" href="#">—</a>
+    </div>
+    <div>
+      <h4>Follow</h4>
+      <a href="#"><i class="fa-brands fa-facebook"></i> Facebook</a>
+      <a href="#"><i class="fa-brands fa-instagram"></i> Instagram</a>
+    </div>
+  </div>
+  <div class="copy">© <span id="yr"></span> Saryu Sankul. All rights reserved. | <a href="admin.html" style="color:var(--gold)">Admin</a></div>
+</footer>
+
+<!-- Toast -->
+<div id="toast"></div>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+<script>
+/* Firebase Config */
+const firebaseConfig = {
+  apiKey: "AIzaSyA7o7B7wJuo7c75hBX4Zc8AmyG-Zi_iYCI",
+  authDomain: "saryu-sankul.firebaseapp.com",
+  databaseURL: "https://saryu-sankul-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "saryu-sankul",
+  storageBucket: "saryu-sankul.firebasestorage.app",
+  messagingSenderId: "44385150280",
+  appId: "1:44385150280:web:abf95bd537bf3fe1fbbf7d"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+/* Utilities */
+const $ = s => document.querySelector(s);
+function esc(s) { return String(s||"").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])) }
+function toast(msg,type=""){
+  const t=$("#toast");t.textContent=msg;t.className="show "+(type||"");
+  setTimeout(()=>t.className="",2800);
+}
+function nlBr(s){ return esc(s||"").replace(/\n/g,"<br>") }
+function renderBlogContent(content){
+  if(!content) return "";
+  const hasHtml=/<[a-z][\s\S]*>/i.test(content);
+  return hasHtml ? content : nlBr(content);
+}
+function stripHtml(html){
+  const tmp=document.createElement("DIV");tmp.innerHTML=html||"";
+  return (tmp.textContent||tmp.innerText||"").replace(/\s+/g,' ').trim();
+}
+function readingTime(html){
+  const words=stripHtml(html).split(/\s+/).filter(w=>w.length>0).length;
+  return Math.max(1,Math.ceil(words/200))+" min read";
+}
+function getInitial(name){ return (name||"G").charAt(0).toUpperCase() }
+
+/* Get blog ID from URL */
+const urlParams = new URLSearchParams(window.location.search);
+const blogId = urlParams.get('id');
+
+/* Theme */
+const savedTheme = localStorage.getItem("ss_theme") || "light";
+if(savedTheme === "dark") document.documentElement.setAttribute("data-theme","dark");
+$("#themeBtn").addEventListener("click",()=>{
+  const cur = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+  if(cur === "dark") document.documentElement.setAttribute("data-theme","dark");
+  else document.documentElement.removeAttribute("data-theme");
+  localStorage.setItem("ss_theme",cur);
+  $("#themeBtn").innerHTML = cur === "dark" ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+});
+if(savedTheme === "dark") $("#themeBtn").innerHTML = '<i class="fa-solid fa-sun"></i>';
+
+/* Reading Progress Bar */
+window.addEventListener("scroll",()=>{
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = docHeight > 0 ? (window.scrollY / docHeight) * 100 : 0;
+  $("#readingProgress").style.width = Math.min(progress, 100) + "%";
+});
+
+/* Share Buttons */
+function shareBarHTML(title,url){
+  const u=encodeURIComponent(url||location.href);
+  const t=encodeURIComponent(title||"");
+  return `
+    <button class="share-btn wa" onclick="window.open('https://wa.me/?text=${t}%0A${u}','_blank')"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+    <button class="share-btn fb" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${u}','_blank')"><i class="fa-brands fa-facebook-f"></i> Facebook</button>
+    <button class="share-btn tw" onclick="window.open('https://twitter.com/intent/tweet?text=${t}&url=${u}','_blank')"><i class="fa-brands fa-x-twitter"></i> X</button>
+    <button class="share-btn li" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url=${u}','_blank')"><i class="fa-brands fa-linkedin-in"></i> LinkedIn</button>
+    <button class="share-btn copy" onclick="navigator.clipboard.writeText('${(url||location.href).replace(/'/g,"\\'")}').then(()=>toast('Link copied!','success'))"><i class="fa-regular fa-copy"></i> Copy</button>
+  `;
+}
+
+/* Load Blog Data */
+let SETTINGS = {};
+let BLOGS = {};
+
+function loadBlog(){
+  if(!blogId){
+    document.getElementById("articleTitle").textContent = "Blog not found";
+    return;
+  }
+
+  db.ref("settings").once("value").then(s=>{
+    const settings = s.val() || {};
+    SETTINGS = settings;
+    applySettings(settings);
+  });
+
+  db.ref("blogs/"+blogId).once("value").then(snap=>{
+    const b = snap.val();
+    if(!b){
+      document.getElementById("articleTitle").textContent = "Blog not found";
+      return;
+    }
+
+    // Update page
+    document.title = (b.metaTitle||b.title||"Blog") + " — " + (SETTINGS.homestayName||"Saryu Sankul");
+    if(b.metaDescription) document.getElementById("pageDesc").content = b.metaDescription;
+    if(b.canonicalUrl) document.getElementById("canonicalLink").href = b.canonicalUrl;
+
+    // Hero
+    if(b.coverImage) document.getElementById("articleBg").style.backgroundImage = `url('${esc(b.coverImage)}')`;
+    document.getElementById("articleCat").textContent = b.category||"Article";
+    document.getElementById("articleTitle").textContent = b.title||"";
+    document.getElementById("articleDate").innerHTML = `<i class="fa-regular fa-calendar"></i> ${esc(b.publishDate||"")}`;
+    if(b.author) document.getElementById("articleAuthor").innerHTML = `<i class="fa-regular fa-user"></i> ${esc(b.author)}`;
+    document.getElementById("articleReadTime").innerHTML = `<i class="fa-regular fa-clock"></i> ${readingTime(b.content||"")}`;
+
+    // Tags
+    const tags = (b.keywords||"").split(",").map(t=>t.trim()).filter(Boolean);
+    if(tags.length){
+      document.getElementById("articleTags").innerHTML = tags.map(t=>`<span class="tag-pill">${esc(t)}</span>`).join("");
+    }
+
+    // Content
+    document.getElementById("blogContent").innerHTML = renderBlogContent(b.content||"");
+
+    // Share
+    document.getElementById("shareButtons").innerHTML = shareBarHTML(b.title, location.href);
+
+    // Related posts
+    loadRelatedPosts(b.category, blogId);
+
+    // Comments
+    loadComments();
+  });
+}
+
+function applySettings(s){
+  if(!s) return;
+  document.getElementById("brandName").textContent = s.homestayName||"Saryu Sankul";
+  document.getElementById("brandTag").textContent = s.tagline||"Premium Homestay";
+  document.getElementById("footName").textContent = s.homestayName||"Saryu Sankul";
+  document.getElementById("footAbout").textContent = s.about||"A peaceful premium homestay.";
+  document.getElementById("fPhone").textContent = s.phone||"—";
+  document.getElementById("fPhone").href = "tel:"+(s.phone||"");
+  document.getElementById("fEmail").textContent = s.email||"—";
+  document.getElementById("fEmail").href = "mailto:"+(s.email||"");
+}
+
+/* Related Posts */
+function loadRelatedPosts(category, currentId){
+  db.ref("blogs").once("value").then(snap=>{
+    const all = snap.val() || {};
+    const related = Object.entries(all)
+      .filter(([id,b])=> id !== currentId && b.status !== "Draft" && b.category === category)
+      .slice(0,4);
+    
+    if(!related.length){
+      // Fallback: any 4 other posts
+      const fallback = Object.entries(all)
+        .filter(([id,b])=> id !== currentId && b.status !== "Draft")
+        .slice(0,4);
+      renderRelated(fallback);
+    } else {
+      renderRelated(related);
+    }
+  });
+}
+
+function renderRelated(list){
+  const grid = document.getElementById("relatedGrid");
+  if(!list.length){
+    grid.innerHTML = '<div class="no-comments"><i class="fa-solid fa-newspaper"></i> No related posts found</div>';
+    return;
+  }
+  grid.innerHTML = list.map(([id,b])=>`
+    <a class="related-card" href="blog.html?id=${encodeURIComponent(id)}" target="_blank" rel="noopener noreferrer">
+      <div class="rimg" style="background-image:url('${esc(b.coverImage||"")}')"></div>
+      <div class="rbody">
+        <h4>${esc(b.title||"")}</h4>
+        <div class="rmeta">${esc(b.publishDate||"")} · ${readingTime(b.content||"")}</div>
+      </div>
+    </a>
+  `).join("");
+}
+
+/* Comments */
+function loadComments(){
+  db.ref("blogComments/"+blogId).once("value").then(snap=>{
+    const comments = Object.values(snap.val()||{});
+    document.getElementById("commentCount").textContent = comments.length;
+    
+    const list = document.getElementById("commentsList");
+    if(!comments.length){
+      list.innerHTML = '<div class="no-comments"><i class="fa-regular fa-comments"></i> Be the first to comment on this article!</div>';
+      return;
+    }
+    
+    // Sort by date
+    comments.sort((a,b)=>(b.createdAt||"").localeCompare(a.createdAt||""));
+    
+    list.innerHTML = comments.map(c=>`
+      <div class="comment-item">
+        <div class="avatar">${getInitial(c.name)}</div>
+        <div class="cmain">
+          <div class="cname">${esc(c.name||"Anonymous")}</div>
+          <div class="cdate">${formatCommentDate(c.createdAt)}</div>
+          <div class="ctext">${esc(c.comment||"")}</div>
+        </div>
+      </div>
+    `).join("");
+  });
+}
+
+function formatCommentDate(ts){
+  if(!ts) return "";
+  try{
+    return new Date(ts).toLocaleString('en-IN',{dateStyle:'medium',timeStyle:'short'});
+  }catch(e){ return ts; }
+}
+
+async function submitComment(){
+  const name = document.getElementById("commentName").value.trim();
+  const email = document.getElementById("commentEmail").value.trim();
+  const comment = document.getElementById("commentText").value.trim();
+
+  if(!name || !comment){ toast("Please fill in your name and comment","error"); return; }
+
+  const data = {
+    name, email, comment,
+    createdAt: new Date().toISOString()
+  };
+
+  try{
+    await db.ref("blogComments/"+blogId).push(data);
+    document.getElementById("commentName").value = "";
+    document.getElementById("commentEmail").value = "";
+    document.getElementById("commentText").value = "";
+    toast("Comment posted!","success");
+    loadComments();
+  }catch(err){
+    toast("Failed to post comment","error");
+  }
+}
+
+/* Subscribe Form */
+document.getElementById("subscribeForm").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const email = e.target.email.value.trim();
+  if(!email){ toast("Please enter your email","error"); return; }
+  
+  try{
+    await db.ref("subscribers").push({
+      email,
+      subscribedAt: new Date().toISOString(),
+      source: "blog_article"
+    });
+    e.target.reset();
+    toast("Subscribed successfully! Welcome aboard 🎉","success");
+  }catch(err){
+    toast("Subscription failed. Try again.","error");
+  }
+});
+
+/* Init */
+document.getElementById("yr").textContent = new Date().getFullYear();
+loadBlog();
+</script>
+</body>
+</html>

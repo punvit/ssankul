@@ -268,46 +268,69 @@ section{padding:70px 20px;position:relative}
   background:linear-gradient(transparent,rgba(0,0,0,.7));
 }
 
-/* ====== BLOGS ====== */
-.blogs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px}
+/* ====== BLOGS — COMPACT SQUARE CARDS ====== */
+.blogs-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:20px;
+}
+@media(max-width:1024px){
+  .blogs-grid{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:768px){
+  .blogs-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:480px){
+  .blogs-grid{grid-template-columns:1fr 1fr;gap:12px}
+}
+
 .blog-card{
   background:var(--surface);border-radius:var(--radius);overflow:hidden;
-  box-shadow:var(--shadow-sm);border:1px solid var(--border);transition:.3s;cursor:pointer;
+  box-shadow:var(--shadow-sm);border:1px solid var(--border);
+  transition:.3s;cursor:pointer;display:flex;flex-direction:column;
 }
 .blog-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}
-.blog-card .img{height:180px;background-size:cover;background-position:center}
-.blog-card .body{padding:18px}
-.blog-card .cat{
-  display:inline-block;padding:4px 10px;border-radius:20px;background:var(--beige);
-  color:var(--green-800);font-size:11px;font-weight:600;margin-bottom:10px;text-transform:uppercase;letter-spacing:1px;
+
+/* Square image container */
+.blog-card .blog-img-wrap{
+  position:relative;
+  width:100%;
+  padding-top:100%; /* 1:1 square */
+  overflow:hidden;
+  background:var(--beige);
 }
-.blog-card h3{font-size:18px;color:var(--green-900);margin-bottom:8px;line-height:1.3}
-[data-theme="dark"] .blog-card h3{color:var(--gold)}
-.blog-card p{font-size:13px;color:var(--text-soft);margin-bottom:10px}
-.blog-card .meta{font-size:12px;color:var(--text-soft);display:flex;justify-content:space-between;align-items:center}
-.blog-card .meta .more{color:var(--gold);font-weight:600}
+.blog-card .blog-img-wrap .blog-img{
+  position:absolute;top:0;left:0;width:100%;height:100%;
+  background-size:cover;background-position:center;
+  transition:.4s;
+}
+.blog-card:hover .blog-img-wrap .blog-img{transform:scale(1.08)}
 
-/* Blog tags on cards */
-.blog-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
-.tag-pill{display:inline-block;padding:3px 10px;border-radius:20px;background:var(--surface-2);border:1px solid var(--border);font-size:11px;color:var(--text-soft)}
+/* Blog card body */
+.blog-card .blog-body{
+  padding:14px 14px 16px;
+  flex:1;display:flex;flex-direction:column;
+}
+.blog-card .blog-title{
+  font-size:14px;font-family:'Playfair Display',serif;font-weight:600;
+  color:var(--green-900);line-height:1.3;margin-bottom:8px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+[data-theme="dark"] .blog-card .blog-title{color:var(--gold)}
 
-/* ====== BLOG ARTICLE RENDER ====== */
-.blog-article{font-size:15px;line-height:1.7;color:var(--text)}
-.blog-article h1,.blog-article h2,.blog-article h3{color:var(--green-900);font-family:'Playfair Display',serif;margin:20px 0 10px;line-height:1.3}
-[data-theme="dark"] .blog-article h1,[data-theme="dark"] .blog-article h2,[data-theme="dark"] .blog-article h3{color:var(--gold)}
-.blog-article h1{font-size:26px}
-.blog-article h2{font-size:22px}
-.blog-article h3{font-size:18px}
-.blog-article p{margin-bottom:14px}
-.blog-article ul,.blog-article ol{margin:10px 0 10px 22px;padding-left:14px}
-.blog-article li{margin-bottom:6px}
-.blog-article a{color:var(--green-700);text-decoration:underline;font-weight:500}
-.blog-article a:hover{color:var(--green-900)}
-.blog-article blockquote{border-left:3px solid var(--gold);padding:10px 14px;background:var(--surface-2);border-radius:0 8px 8px 0;font-style:italic;color:var(--text-soft);margin:14px 0}
-.blog-article img{max-width:100%;border-radius:10px;margin:14px 0;box-shadow:var(--shadow-sm)}
-.blog-article strong{font-weight:600}
-.blog-article em{font-style:italic}
-.blog-article u{text-decoration:underline; text-decoration-color:var(--gold);text-underline-offset:3px}
+.blog-card .blog-date{
+  font-size:11px;color:var(--text-soft);margin-bottom:auto;
+}
+
+.blog-card .read-more{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:12px;font-weight:600;color:var(--gold);
+  margin-top:10px;padding-top:10px;border-top:1px solid var(--border);
+  transition:.2s;
+}
+.blog-card .read-more:hover{color:var(--gold-2);gap:8px}
+.blog-card .read-more i{font-size:10px;transition:.2s}
+.blog-card:hover .read-more i{transform:translateX(3px)}
 
 /* ====== ATTRACTIONS ====== */
 .attr-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
@@ -651,7 +674,7 @@ footer{
   </div>
 </section>
 
-<!-- ====== BLOGS ====== -->
+<!-- ====== BLOGS — COMPACT SQUARE CARDS ====== -->
 <section id="blogs">
   <div class="container">
     <div class="section-head">
@@ -813,7 +836,7 @@ footer{
 
 <script>
 /* =======================================================
-   FIREBASE CONFIG
+   FIREBASE CONFIG — replace with your project's values
 ======================================================= */
 const firebaseConfig = {
   apiKey: "AIzaSyA7o7B7wJuo7c75hBX4Zc8AmyG-Zi_iYCI",
@@ -852,20 +875,11 @@ function genBookingId(){
   return "SSBK"+Math.floor(100000+Math.random()*900000);
 }
 function fmtINR(n){if(!n) return "—";return "₹"+Number(n).toLocaleString('en-IN')}
-function escapeHTML(s){return String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function nlBr(s){return escapeHTML(s).replace(/\n/g,"<br>")}
-
-// Smart render: if content has HTML tags, render as-is; else nl2br
-function renderBlogContent(content){
-  if(!content) return "";
-  const hasHtml=/<[a-z][\s\S]*>/i.test(content);
-  return hasHtml ? content : nlBr(content);
-}
+function escapeHTML(s){return String(s||"").replace(/[&<>\"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 
 /* =======================================================
    MODAL
 ======================================================= */
-let _originalTitle=document.title;
 function openModal(title,htmlBody){
   $("#modalTitle").textContent=title;
   $("#modalBody").innerHTML=htmlBody;
@@ -875,8 +889,6 @@ function openModal(title,htmlBody){
 function closeModal(){
   $("#modalMask").classList.remove("show");
   document.body.style.overflow="";
-  // Restore title if changed by blog
-  if(document.title!==_originalTitle) document.title=_originalTitle;
 }
 $("#modalMask").addEventListener("click",e=>{if(e.target.id==="modalMask")closeModal()});
 
@@ -1013,7 +1025,7 @@ function viewRoom(id){
       <span><i class="fa-solid fa-bed"></i>${escapeHTML(r.type||"")}</span>
       <span class="avail-badge ${av==='Sold Out'?'avail-Sold':av==='Under Maintenance'?'avail-Maintenance':'avail-'+av}">${av}</span>
     </div>
-    <p>${nlBr(r.description||"")}</p>
+    <p>${escapeHTML(r.description||"").replace(/\n/g,'<br>')}</p>
     <div class="amen-chips">${amenList.map(a=>`<span><i class="fa-solid fa-check" style="color:var(--green-700);margin-right:4px"></i>${escapeHTML(a)}</span>`).join("")}</div>
     <div style="text-align:center;margin-top:18px">
       <button class="btn btn-primary" onclick="bookRoom('${id}');closeModal()"><i class="fa-solid fa-calendar-check"></i> Book This Room</button>
@@ -1071,80 +1083,23 @@ function renderGallery(){
 }
 
 /* =======================================================
-   BLOGS  (SEO + Rich Editor Support)
+   BLOGS — COMPACT SQUARE CARDS (Opens new page)
 ======================================================= */
 function renderBlogs(){
   const grid=$("#blogsGrid");
   const list=Object.entries(BLOGS).filter(([_,b])=>b.status!=="Draft");
   if(!list.length){grid.innerHTML=`<div class="empty"><i class="fa-regular fa-newspaper"></i><div>No blogs yet</div></div>`;return}
-  grid.innerHTML=list.map(([id,b])=>{
-    const tags=(b.keywords||"").split(",").map(t=>t.trim()).filter(Boolean);
-    return `
-    <div class="blog-card" onclick="openBlog('${id}')">
-      <div class="img" style="background-image:url('${escapeHTML(b.coverImage||'')}')"></div>
-      <div class="body">
-        <span class="cat">${escapeHTML(b.category||"Article")}</span>
-        <h3>${escapeHTML(b.title||"")}</h3>
-        <p>${escapeHTML(b.shortDescription||"")}</p>
-        ${tags.length?`<div class="blog-tags">${tags.map(t=>`<span class="tag-pill">${escapeHTML(t)}</span>`).join("")}</div>`:""}
-        <div class="meta"><span>${escapeHTML(b.publishDate||"")}</span><span class="more">Read more <i class="fa-solid fa-arrow-right"></i></span></div>
+  grid.innerHTML=list.map(([id,b])=>`
+    <a class="blog-card" href="blog.html?id=${encodeURIComponent(id)}" target="_blank" rel="noopener noreferrer" aria-label="Read ${escapeHTML(b.title||'blog article')}">
+      <div class="blog-img-wrap">
+        <div class="blog-img" style="background-image:url('${escapeHTML(b.coverImage||'')}')"></div>
       </div>
-    </div>`;
-  }).join("");
-}
-
-function openBlog(id){
-  const b=BLOGS[id];if(!b)return;
-  const tags=(b.keywords||"").split(",").map(t=>t.trim()).filter(Boolean);
-
-  // Update browser title dynamically for UX/SEO signals
-  const siteName=SETTINGS.homestayName||"Saryu Sankul";
-  _originalTitle=document.title;
-  document.title=(b.metaTitle||b.title||"Blog")+" — "+siteName;
-
-  const bodyHtml=renderBlogContent(b.content||"");
-
-  const schema={
-    "@context":"https://schema.org",
-    "@type":"BlogPosting",
-    "headline":b.title||"",
-    "description":b.metaDescription||b.shortDescription||"",
-    "image":b.coverImage||"",
-    "datePublished":b.publishDate||"",
-    "author":{"@type":"Person","name":b.author||siteName},
-    "publisher":{"@type":"Organization","name":siteName,"logo":{"@type":"ImageObject","url":SETTINGS.heroImage||""}}
-  };
-
-  openModal(b.title||"Blog",`
-    ${b.coverImage?`<img class="lg-img" src="${escapeHTML(b.coverImage)}" alt="${escapeHTML(b.title)}">`:""}
-
-    <div style="margin-bottom:10px">
-      <span class="cat" style="display:inline-block;padding:4px 10px;border-radius:20px;background:var(--beige);color:var(--green-800);font-size:11px;font-weight:600;margin-bottom:6px;text-transform:uppercase;letter-spacing:1px">${escapeHTML(b.category||"Article")}</span>
-    </div>
-
-    ${tags.length?`<div class="blog-tags" style="margin-bottom:12px">
-      ${tags.map(t=>`<span class="tag-pill" style="display:inline-block;padding:3px 10px;border-radius:20px;background:var(--surface-2);border:1px solid var(--border);font-size:11px;color:var(--text-soft);margin-right:6px;margin-bottom:4px">${escapeHTML(t)}</span>`).join("")}
-    </div>`:""}
-
-    <div style="color:var(--text-soft);font-size:13px;margin-bottom:14px;display:flex;gap:14px;flex-wrap:wrap;align-items:center">
-      <span><i class="fa-regular fa-calendar" style="margin-right:4px"></i>${escapeHTML(b.publishDate||"")}</span>
-      ${b.author?`<span><i class="fa-regular fa-user" style="margin-right:4px"></i>${escapeHTML(b.author)}</span>`:""}
-      ${b.metaDescription?`<span style="display:none" itemprop="description">${escapeHTML(b.metaDescription)}</span>`:""}
-    </div>
-
-    ${b.metaDescription?`<p style="font-size:14px;color:var(--text-soft);font-style:italic;border-left:3px solid var(--gold);padding-left:12px;margin-bottom:18px;line-height:1.6">${escapeHTML(b.metaDescription)}</p>`:""}
-
-    <article class="blog-article" itemscope itemtype="https://schema.org/BlogPosting">
-      <meta itemprop="headline" content="${escapeHTML(b.title||'')}">
-      <meta itemprop="datePublished" content="${escapeHTML(b.publishDate||'')}">
-      ${b.coverImage?`<meta itemprop="image" content="${escapeHTML(b.coverImage)}">`:""}
-      <div itemprop="articleBody">
-        ${bodyHtml}
+      <div class="blog-body">
+        <div class="blog-title">${escapeHTML(b.title||"")}</div>
+        <div class="blog-date"><i class="fa-regular fa-calendar"></i> ${escapeHTML(b.publishDate||"")}</div>
+        <div class="read-more">Read more <i class="fa-solid fa-arrow-right"></i></div>
       </div>
-    </article>
-
-    <script type="application/ld+json">${JSON.stringify(schema)}<\/script>
-  `);
+    </a>`).join("");
 }
 
 /* =======================================================
